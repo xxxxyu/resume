@@ -45,6 +45,11 @@
         { "id": "publications", "label": "Publications" },
         { "id": "complete", "label": "Complete" }
       ],
+      "palette": {
+        "ariaLabel": "Preview color mode",
+        "color": "Color",
+        "mono": "B&W"
+      },
       "print": "Print / Export PDF"
     },
     "resume": { "footer": "Full paper list on the next page" },

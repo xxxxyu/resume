@@ -5,26 +5,31 @@ import { PapersPages } from "./documents/publications.jsx";
 import { ResumePage } from "./documents/resume.jsx";
 import "./styles/main.css";
 
-function routeFor(locale, mode) {
+function routeFor(locale, mode, palette) {
   const params = new URLSearchParams({ locale });
   if (mode === "publications") params.set("document", "publications");
   else params.set("edition", mode);
+  if (palette === "mono") params.set("palette", "mono");
   return `?${params.toString()}`;
 }
 
-function PreviewToolbar({ locale, mode, ui }) {
+function PreviewToolbar({ locale, mode, palette, ui }) {
   return (
     <nav className="preview-toolbar" aria-label={ui.ariaLabel}>
       <div className="preview-title"><strong>{ui.title}</strong><span>{ui.pageSize}</span></div>
       <div className="preview-controls">
         <div className="preview-tabs preview-locales" aria-label="Language">
-          <a className={locale === "zh" ? "active" : ""} aria-current={locale === "zh" ? "page" : undefined} href={routeFor("zh", mode)}>中文</a>
-          <a className={locale === "en" ? "active" : ""} aria-current={locale === "en" ? "page" : undefined} href={routeFor("en", mode)}>English</a>
+          <a className={locale === "zh" ? "active" : ""} aria-current={locale === "zh" ? "page" : undefined} href={routeFor("zh", mode, palette)}>中文</a>
+          <a className={locale === "en" ? "active" : ""} aria-current={locale === "en" ? "page" : undefined} href={routeFor("en", mode, palette)}>English</a>
         </div>
         <div className="preview-tabs">
           {ui.tabs.map((tab) => (
-            <a key={tab.id} className={mode === tab.id ? "active" : ""} aria-current={mode === tab.id ? "page" : undefined} href={routeFor(locale, tab.id)}>{tab.label}</a>
+            <a key={tab.id} className={mode === tab.id ? "active" : ""} aria-current={mode === tab.id ? "page" : undefined} href={routeFor(locale, tab.id, palette)}>{tab.label}</a>
           ))}
+        </div>
+        <div className="preview-tabs preview-palettes" aria-label={ui.palette.ariaLabel}>
+          <a className={palette === "color" ? "active" : ""} aria-current={palette === "color" ? "page" : undefined} href={routeFor(locale, mode, "color")}>{ui.palette.color}</a>
+          <a className={palette === "mono" ? "active" : ""} aria-current={palette === "mono" ? "page" : undefined} href={routeFor(locale, mode, "mono")}>{ui.palette.mono}</a>
         </div>
       </div>
       <button type="button" onClick={() => window.print()}>{ui.print}</button>
@@ -76,6 +81,7 @@ window.addEventListener("resize", updatePreviewScale, { passive: true });
 const params = new URLSearchParams(window.location.search);
 const legacyView = params.get("view");
 const locale = params.get("locale") === "en" ? "en" : "zh";
+const palette = params.get("palette") === "mono" ? "mono" : "color";
 const mode = params.get("document") === "publications" || legacyView === "papers"
   ? "publications"
   : params.get("edition") === "one-page" || legacyView === "resume"
@@ -84,6 +90,7 @@ const mode = params.get("document") === "publications" || legacyView === "papers
 const { resumeData, paperListData } = getDocumentData(locale);
 
 document.documentElement.lang = resumeData.profile.lang;
+document.documentElement.dataset.palette = palette;
 document.body.dataset.locale = locale;
 document.body.dataset.mode = mode;
 document.title = `${resumeData.profile.name} — Resume`;
@@ -97,7 +104,7 @@ const documentView = mode === "publications"
 createRoot(document.getElementById("root")).render(
   <div className="preview-stage">
     <PreviewNotice notice={resumeData.ui.preview.notice} />
-    <PreviewToolbar locale={locale} mode={mode} ui={resumeData.ui.preview} />
+    <PreviewToolbar locale={locale} mode={mode} palette={palette} ui={resumeData.ui.preview} />
     {documentView}
   </div>
 );

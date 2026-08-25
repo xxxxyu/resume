@@ -45,6 +45,11 @@
         { "id": "publications", "label": "论文列表" },
         { "id": "complete", "label": "完整版" }
       ],
+      "palette": {
+        "ariaLabel": "预览配色",
+        "color": "彩色",
+        "mono": "黑白"
+      },
       "print": "打印 / 导出 PDF"
     },
     "resume": {

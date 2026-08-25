@@ -19,6 +19,7 @@ same layout to PDF with Playwright.
 - Chinese and idiomatic English content with a shared layout system.
 - Independent language and document-length controls.
 - A4-sized browser pages with automatic publication-list pagination.
+- An optional high-contrast monochrome palette for black-and-white printing.
 - Responsive preview scaling: true-size A4 on large displays and proportional
   fit-to-width scaling on tablets and phones.
 - Stacked, preview-only contact and template-reuse notes above the A4 pages.
@@ -53,13 +54,16 @@ The available routes are:
 ?locale=zh&edition=one-page
 ?locale=zh&edition=complete
 ?locale=zh&document=publications
+?locale=zh&edition=complete&palette=mono
 ```
 
 Replace `zh` with `en` for the English documents. The toolbar and stacked
 introductory notes are preview-only and are omitted automatically when printing
 or exporting. On large displays, pages remain at their physical A4 size; on
 narrower screens, the complete preview scales down uniformly without changing
-the print layout.
+the print layout. Color is the default palette; select **B&W** in the toolbar or
+add `palette=mono` to use the same layout with high-contrast grayscale colors.
+Printing and PDF export preserve the selected palette.
 
 ## Use the design for your own resume
 

@@ -1,0 +1,15 @@
+{
+  "homepageRepo": "../xxxxyu.github.io",
+  "sources": {
+    "papers": "data/papers.toml",
+    "profile": "content/_index.zh.md",
+    "about": "content/about/_index.zh.md",
+    "awards": "data/awards.zh.md",
+    "experiences": "data/experiences.zh.md",
+    "citations": "data/gs/total.json"
+  },
+  "githubRepositories": [
+    "air-embodied-brain/Zetta-Embodiment",
+    "SEU-PAISys/Embodied.cpp"
+  ]
+}

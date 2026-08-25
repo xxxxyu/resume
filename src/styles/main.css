@@ -1,0 +1,327 @@
+@font-face {
+  font-family: "Source Sans 3";
+  src: url("/fonts/SourceSans3VF-Upright.ttf.woff2") format("woff2");
+  font-weight: 200 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Source Serif 4";
+  src: url("/fonts/SourceSerif4Variable-Roman.ttf.woff2") format("woff2");
+  font-weight: 200 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Noto Sans SC Resume";
+  src: url("/fonts/NotoSansSC-SiteSubset.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Noto Serif SC Resume";
+  src: url("/fonts/NotoSerifSC-SiteSubset.woff2") format("woff2");
+  font-weight: 200 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --paper: #fffefa;
+  --ink: #292825;
+  --muted: #716d66;
+  --rule: #d7d2c9;
+  --blue: #315f78;
+  --blue-pale: #e8eff2;
+  --red: #a33a31;
+  --red-pale: #f4e8e5;
+  --preview-scale: 1;
+  font-family: "Source Sans 3", "Noto Sans SC Resume", "Noto Sans SC", sans-serif;
+  color: var(--ink);
+  background: #e9e7e2;
+  font-synthesis: none;
+}
+
+* { box-sizing: border-box; }
+html, body, #root { margin: 0; min-height: 100%; }
+body { padding: 22px 0 36px; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+a { color: var(--blue); text-decoration: none; }
+
+.preview-stage { width: 210mm; margin: 0 auto; }
+.page-stack { display: grid; gap: 28px; }
+.page {
+  position: relative;
+  width: 210mm;
+  height: 297mm;
+  margin: 0 auto;
+  padding: 11mm 14mm 9mm;
+  overflow: hidden;
+  background: var(--paper);
+  box-shadow: 0 1px 12px rgb(41 40 37 / 12%);
+}
+
+.preview-notice {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 7px;
+  width: 210mm;
+  margin: 0 auto 10px;
+  padding: 9px 14px;
+  border: 1px solid #d3cfc7;
+  border-left: 3px solid var(--blue);
+  border-radius: 5px;
+  background: rgb(255 254 250 / 78%);
+  color: var(--muted);
+  font-size: 8.5pt;
+  line-height: 1.5;
+}
+.preview-notice p { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 8px; margin: 0; }
+.preview-notice strong { color: var(--ink); font-weight: 680; white-space: nowrap; }
+.preview-notice a { border-bottom: 1px solid rgb(49 95 120 / 28%); }
+
+.preview-toolbar {
+  position: sticky;
+  z-index: 10;
+  top: 12px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  width: 210mm;
+  min-height: 42px;
+  margin: 0 auto 22px;
+  padding: 6px 8px 6px 14px;
+  border: 1px solid #c9c5bd;
+  border-radius: 7px;
+  background: rgb(255 254 250 / 94%);
+  box-shadow: 0 4px 18px rgb(41 40 37 / 11%);
+  backdrop-filter: blur(10px);
+  font-size: 9pt;
+  line-height: 1.5;
+}
+.preview-title { display: flex; align-items: baseline; gap: 8px; }
+.preview-title strong { color: var(--blue); font-weight: 720; }
+.preview-title span { color: var(--muted); font-size: 8pt; }
+.preview-controls { display: flex; align-items: center; gap: 6px; }
+.preview-tabs { display: flex; gap: 3px; padding: 3px; border-radius: 5px; background: #efede8; }
+.preview-tabs a { padding: 4px 10px; border-radius: 3px; color: var(--muted); }
+.preview-locales a { padding-right: 7px; padding-left: 7px; }
+.preview-tabs a.active { color: var(--ink); background: var(--paper); box-shadow: 0 1px 4px rgb(41 40 37 / 10%); font-weight: 680; }
+.preview-toolbar button { justify-self: end; padding: 6px 10px; border: 0; border-radius: 4px; color: #fff; background: var(--blue); font: inherit; font-weight: 650; cursor: pointer; }
+
+.shape { position: absolute; pointer-events: none; }
+.shape-left { top: 0; left: 0; width: 4.2mm; height: 25mm; background: var(--blue-pale); border-right: 0.7mm solid var(--blue); }
+.shape-red { top: 7mm; right: 0; width: 11mm; height: 4.2mm; background: var(--red-pale); border-left: 2.4mm solid var(--red); }
+.shape-bottom { right: 0; bottom: 0; width: 18mm; height: 3.2mm; background: var(--blue-pale); }
+
+.resume-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 65mm;
+  column-gap: 8mm;
+  align-items: end;
+  padding-bottom: 3mm;
+  border-bottom: 0.55pt solid var(--rule);
+}
+
+.name-block h1 {
+  margin: 0;
+  font-family: "Noto Serif SC Resume", "Noto Serif SC", serif;
+  font-size: 26pt;
+  font-weight: 620;
+  line-height: 1;
+  letter-spacing: 0.03em;
+}
+
+.page[lang="en"] .name-block h1 {
+  font-family: "Source Serif 4", serif;
+  font-size: 25pt;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+
+.page[lang="en"] .latin-name {
+  font-family: "Noto Serif SC Resume", "Noto Serif SC", serif;
+  font-size: 8pt;
+  letter-spacing: 0.08em;
+}
+
+.latin-name {
+  margin-top: 1mm;
+  color: var(--blue);
+  font-family: "Source Serif 4", serif;
+  font-size: 8pt;
+  font-weight: 650;
+  line-height: 1.5;
+  letter-spacing: 0.13em;
+}
+
+.affiliation { margin-top: 1.5mm; font-size: 10pt; font-weight: 610; line-height: 1.5; }
+.fields { margin-top: 0.3mm; color: var(--muted); font-size: 8pt; line-height: 1.5; letter-spacing: 0.01em; }
+
+address {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.48mm;
+  color: var(--muted);
+  font-size: 8pt;
+  font-style: normal;
+  line-height: 1.5;
+}
+
+.resume-section {
+  display: grid;
+  grid-template-columns: 24mm minmax(0, 1fr);
+  column-gap: 3.5mm;
+  margin-top: 3mm;
+  break-inside: avoid;
+}
+
+.section-label { display: grid; grid-template-columns: 4mm minmax(0, 1fr); column-gap: 0.5mm; align-content: start; align-items: start; padding: 0; }
+.section-index { grid-column: 1; grid-row: 1; color: var(--red); font-family: "Source Sans 3", sans-serif; font-size: 7pt; font-weight: 650; line-height: 1.5; letter-spacing: 0.04em; }
+.section-label h2 { grid-column: 2; grid-row: 1; margin: -0.5mm 0 0; color: var(--blue); font-family: "Noto Sans SC Resume", "Noto Sans SC", sans-serif; font-size: 11pt; font-weight: 680; line-height: 1.5; white-space: nowrap; }
+.section-english { grid-column: 2; grid-row: 2; display: block; margin-top: 0.2mm; color: var(--muted); font-family: "Source Serif 4", serif; font-size: 7pt; line-height: 1.5; letter-spacing: 0.035em; text-transform: uppercase; }
+.page[lang="en"] .section-label h2 { font-family: "Source Serif 4", serif; font-size: 10.5pt; letter-spacing: -0.01em; }
+.page[lang="en"] .section-english { font-size: 6.4pt; letter-spacing: 0.045em; }
+.section-content { min-width: 0; padding-top: 0; }
+.entry + .entry { margin-top: 1.5mm; }
+
+.entry-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 29mm;
+  column-gap: 3mm;
+  align-items: baseline;
+}
+.entry-head-full { grid-template-columns: minmax(0, 1fr); }
+
+.entry-identity { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4mm 1.15mm; min-width: 0; }
+.entry h3 { display: inline; margin: 0; font-size: 10pt; font-weight: 680; line-height: 1.5; }
+.entry-role { color: var(--red); font-size: 8pt; font-weight: 720; line-height: 1.5; letter-spacing: 0.02em; }
+.entry-distinction { color: var(--red); font-size: 8pt; font-weight: 720; line-height: 1.5; }
+.entry-distinction::before { content: "|"; margin-right: 1.15mm; color: var(--rule); font-weight: 400; }
+.entry-venue { color: var(--ink); font-size: 8pt; font-weight: 640; line-height: 1.5; }
+.entry-venue::before { content: "|"; margin-right: 1.15mm; color: var(--rule); font-weight: 400; }
+.entry-venue-review { color: var(--muted); font-weight: 400; }
+.entry-meta { color: var(--muted); font-size: 8pt; line-height: 1.5; }
+.entry-meta::before { content: "|"; margin-right: 1.15mm; color: var(--rule); }
+time { color: var(--muted); font-size: 8pt; font-variant-numeric: tabular-nums; line-height: 1.5; text-align: right; white-space: nowrap; }
+
+.entry p, .entry li { margin: 0; font-size: 9pt; line-height: 1.5; }
+.entry p { margin-top: 0.42mm; }
+.entry ul { margin: 0.5mm 0 0; padding: 0; list-style: none; }
+.entry li { position: relative; padding-left: 2.8mm; }
+.entry li + li { margin-top: 0.38mm; }
+.entry li::before { content: ""; position: absolute; top: 0.55em; left: 0.45mm; width: 0.95mm; height: 0.95mm; background: var(--blue); }
+.entry strong { color: var(--red); font-weight: 700; }
+.entry b { color: var(--blue); font-weight: 680; }
+.label-divider { color: var(--rule); }
+.refs { margin-left: 1.1mm; font-size: 8pt; line-height: 1.5; }
+.ref-separator { margin: 0 0.55mm; color: var(--rule); }
+.entry-plain p { display: block; }
+.entry-plain p + p { margin-top: 0.55mm; }
+.entry-plain ul { margin-top: 0; }
+.entry-direct-refs { margin-top: 0.15mm; line-height: 1.5; }
+.entry-direct-refs .refs { margin-left: 0; }
+
+.research-group + .research-group { margin-top: 2mm; }
+.research-group-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 29mm;
+  column-gap: 3mm;
+  align-items: baseline;
+  padding: 0 0 0.6mm;
+  border-bottom: 0.55pt solid var(--rule);
+}
+.research-group-title { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5mm 1.2mm; }
+.research-group-title h3 { margin: 0; color: var(--blue); font-family: "Noto Serif SC Resume", "Noto Serif SC", serif; font-size: 10pt; line-height: 1.5; }
+.page[lang="en"] .research-group-title h3 { font-family: "Source Serif 4", serif; font-weight: 660; }
+.research-group-title > span:last-child { color: var(--muted); font-family: "Source Serif 4", serif; font-size: 8pt; line-height: 1.5; }
+.research-group-entries { margin-top: 1mm; }
+.research-group-entries .entry + .entry { margin-top: 1.2mm; }
+
+.document-footer {
+  position: absolute;
+  left: 14mm;
+  right: 14mm;
+  bottom: 5.1mm;
+  display: flex;
+  justify-content: flex-end;
+  color: var(--muted);
+  font-size: 7pt;
+  line-height: 1.5;
+  letter-spacing: 0.015em;
+}
+
+.papers-page { padding-top: 10mm; }
+.papers-header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  padding-bottom: 2.6mm;
+  border-bottom: 0.55pt solid var(--rule);
+}
+.papers-kicker { color: var(--red); font-family: "Source Serif 4", serif; font-size: 7pt; font-weight: 700; line-height: 1.5; letter-spacing: 0.11em; }
+.papers-header h1 { margin: 0.4mm 0 0; color: var(--blue); font-family: "Noto Serif SC Resume", "Noto Serif SC", serif; font-size: 22pt; font-weight: 650; line-height: 1.5; letter-spacing: 0.03em; }
+.papers-page[lang="en"] .papers-header h1 { font-family: "Source Serif 4", serif; letter-spacing: -0.015em; }
+.papers-header h1 small { margin-left: 2mm; color: var(--muted); font-size: 9pt; font-weight: 550; }
+.papers-header p { margin: 0.3mm 0 0; color: var(--muted); font-size: 8pt; line-height: 1.5; }
+.papers-header p span { color: var(--rule); }
+.papers-source { display: flex; flex-direction: column; align-items: flex-end; gap: 0.5mm; color: var(--muted); font-size: 8pt; line-height: 1.5; }
+
+.paper-list { margin-top: 2.7mm; }
+.paper-group + .paper-group { margin-top: var(--paper-group-gap, 5.3mm); }
+.paper-group-header { display: flex; align-items: baseline; gap: 1.5mm; padding-bottom: 0.8mm; border-bottom: 0.55pt solid var(--rule); }
+.paper-group-header h2 { margin: 0; color: var(--blue); font-family: "Noto Serif SC Resume", "Noto Serif SC", serif; font-size: 11pt; font-weight: 650; line-height: 1.5; }
+.papers-page[lang="en"] .paper-group-header h2 { font-family: "Source Serif 4", serif; }
+.paper-group-header span { color: var(--muted); font-family: "Source Serif 4", serif; font-size: 8pt; font-weight: 650; line-height: 1.5; letter-spacing: 0.06em; }
+.paper-item {
+  display: grid;
+  grid-template-columns: 7.5mm minmax(0, 1fr);
+  column-gap: 2.2mm;
+  padding: 2mm 0;
+  border-bottom: 0.4pt solid #e3dfd7;
+  break-inside: avoid;
+}
+.paper-index { padding-top: 0.08mm; color: var(--red); font-family: "Source Serif 4", serif; font-size: 8pt; font-weight: 700; line-height: 1.5; letter-spacing: 0.04em; }
+.paper-content { min-width: 0; }
+.paper-content h2 { margin: 0; font-family: "Source Serif 4", "Noto Serif SC Resume", serif; font-size: 10pt; font-weight: 650; line-height: 1.5; letter-spacing: -0.006em; }
+.paper-authors { margin-top: 0.2mm; color: var(--muted); font-size: 8pt; line-height: 1.5; }
+.paper-authors strong { color: var(--blue); font-weight: 750; }
+.paper-detail { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.3mm 1.1mm; margin-top: 0.2mm; font-size: 8pt; line-height: 1.5; }
+.paper-venue { color: var(--ink); font-weight: 670; }
+.paper-note { color: var(--red); font-weight: 680; }
+.paper-note-ae { color: var(--ink); }
+.paper-detail .refs { margin-left: 0.2mm; font-size: 8pt; }
+.paper-page-limit { position: absolute; right: 14mm; bottom: 17.5mm; left: 14mm; height: 0; pointer-events: none; }
+.paper-continuation-cue { position: absolute; right: 14mm; bottom: 11.5mm; display: flex; align-items: center; gap: 1.5mm; color: var(--blue); font-family: "Source Serif 4", "Noto Serif SC Resume", serif; font-size: 7pt; font-weight: 650; line-height: 1.5; letter-spacing: 0.035em; }
+.paper-continuation-cue::before { width: 18mm; border-top: 0.45pt solid var(--rule); content: ""; }
+.paper-continuation-cue b { color: var(--red); font-size: 8pt; font-weight: 700; }
+.paper-measure { position: absolute; top: 0; left: -1000vw; visibility: hidden; width: 182mm; pointer-events: none; }
+.paper-footer { position: absolute; left: 14mm; right: 14mm; bottom: 5.2mm; display: flex; justify-content: space-between; color: var(--muted); font-size: 7pt; line-height: 1.5; }
+
+@page { size: A4; margin: 0; }
+
+@media print {
+  :root { background: transparent; }
+  body { padding: 0; }
+  .preview-notice, .preview-toolbar { display: none; }
+  .paper-measure { display: none; }
+  .page-stack { display: block; }
+  .page { margin: 0; box-shadow: none; break-after: page; page-break-after: always; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  .page:last-child { break-after: auto; page-break-after: auto; }
+}
+
+@media screen and (max-width: 820px) {
+  body { overflow-x: hidden; padding: 8px 0 20px; }
+  .preview-stage { zoom: var(--preview-scale); }
+  .preview-notice { grid-template-columns: 1fr; gap: 7px; margin-bottom: 8px; border-right: 0; border-left-width: 3px; border-radius: 0; }
+  .preview-toolbar { position: static; top: auto; }
+  .page { box-shadow: none; }
+}
+
+@media screen {
+  .page { outline: 1px solid #aaa59b; outline-offset: 0; }
+}

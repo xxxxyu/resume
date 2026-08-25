@@ -1,0 +1,241 @@
+{
+  "profile": {
+    "lang": "en",
+    "name": "Xiangyu Li",
+    "latinName": "李翔宇",
+    "affiliation": "Ph.D. Candidate, Tsinghua University (AIR)",
+    "fields": "Efficient On-Device AI · Self-Evolving Physical AI",
+    "updated": "Updated Aug 2026",
+    "contact": [
+      { "label": "+86 159 1091 2361" },
+      { "label": "lixiangy22@mails.tsinghua.edu.cn", "href": "mailto:lixiangy22@mails.tsinghua.edu.cn" },
+      { "label": "github.com/xxxxyu", "href": "https://github.com/xxxxyu" },
+      { "label": "xxxxyu.github.io", "href": "https://xxxxyu.github.io" },
+      { "label": "Google Scholar", "href": "https://scholar.google.com/citations?user=IjoWeIMAAAAJ" }
+    ]
+  },
+  "ui": {
+    "preview": {
+      "ariaLabel": "Preview controls",
+      "title": "Web Preview",
+      "pageSize": "A4 · 210 × 297 mm",
+      "notice": {
+        "ariaLabel": "Contact and template reuse notes",
+        "items": [
+          {
+            "label": "Get in touch",
+            "segments": [
+              "Feel free to reach out by ",
+              { "label": "Email", "href": "mailto:lixiangy22@mails.tsinghua.edu.cn" },
+              " or WeChat. A quick note on why you’re reaching out and how you came across my work would be appreciated."
+            ]
+          },
+          {
+            "label": "Reuse this template",
+            "segments": [
+              "Feel free to fork or clone the ",
+              { "label": "GitHub repository", "href": "https://github.com/xxxxyu/resume" },
+              " and adapt it to your needs. Your star means a lot to me—thank you!"
+            ]
+          }
+        ]
+      },
+      "tabs": [
+        { "id": "one-page", "label": "One Page" },
+        { "id": "publications", "label": "Publications" },
+        { "id": "complete", "label": "Complete" }
+      ],
+      "print": "Print / Export PDF"
+    },
+    "resume": { "footer": "Full paper list on the next page" },
+    "papers": {
+      "kicker": "PUBLICATIONS & PREPRINTS",
+      "title": "Paper List",
+      "totalPrefix": "",
+      "totalSuffix": " papers",
+      "citationLabel": "Google Scholar citations",
+      "ariaLabel": "Complete paper list",
+      "continuationText": "Remaining preprints continue on the next page",
+      "footerLegend": "* Equal contribution; † / ‡ follow the original author notation."
+    }
+  },
+  "paperGroups": [
+    { "id": "publication", "label": "Published", "english": "PUBLICATIONS" },
+    { "id": "preprint", "label": "Preprints", "english": "PREPRINTS" }
+  ],
+  "paperOverrides": {},
+  "sections": [
+    {
+      "index": "01",
+      "label": "Education",
+      "english": "ACADEMIC TRAINING",
+      "entries": [
+        {
+          "title": "Tsinghua University",
+          "meta": "Ph.D. in Electronic Engineering · Institute for AI Industry Research (AIR)",
+          "date": "Sep 2022–Jun 2027 (expected)",
+          "lines": ["Advised by Prof. Yunxin Liu; working closely with Prof. Ting Cao on on-device AI and embodied AI."]
+        },
+        {
+          "title": "Tsinghua University",
+          "meta": "B.Eng. in Electronic Engineering",
+          "date": "Sep 2018–Jun 2022",
+          "lines": ["Worked on graph mining system."]
+        }
+      ]
+    },
+    {
+      "index": "02",
+      "label": "Research",
+      "english": "SELECTED RESEARCH",
+      "groups": [
+        {
+          "title": "Embodied AI · Efficient Deployment & Self-Evolution",
+          "period": "2025–Present",
+          "entries": [
+            {
+              "title": "OxyGen: Parallel Multi-Task VLA Inference",
+              "role": "First author",
+              "venue": "under review",
+              "bullets": [
+                "Unified KV-cache management across tasks and control frames for concurrent action/language generation.",
+                {
+                  "text": "On π0.5/RTX 4090: up to 3.7× faster, >200 language tokens/s, and 70 Hz action generation.",
+                  "highlights": ["3.7×", ">200 tokens/s", "70 Hz"]
+                }
+              ],
+              "paperRefs": [{ "id": "oxygen", "include": ["paper", "code", "page"] }]
+            },
+            {
+              "title": "ActProbe: Early Failure Detection for Robot Policies",
+              "role": "Co-first author",
+              "venue": "under review",
+              "bullets": [
+                "Built a lightweight action-space probe for early failure detection in generative robot policies.",
+                {
+                  "text": "Expanded the accuracy–earliness Pareto-front area by 12.7%; improved unseen-task detection by 9.0%.",
+                  "highlights": ["12.7%", "9.0%"]
+                }
+              ],
+              "paperRefs": [{ "id": "actprobe", "include": ["paper", "code", "page"] }]
+            },
+            {
+              "title": "Open-Source Embodied AI Harnesses & Infrastructure",
+              "meta": "Contributor",
+              "bullets": [
+                {
+                  "label": "Zetta ζ",
+                  "text": "A closed-loop harness for self-evolving physical intelligence.",
+                  "refs": [
+                    { "label": "Code", "href": "https://github.com/air-embodied-brain/Zetta-Embodiment", "githubRepository": "air-embodied-brain/Zetta-Embodiment" }
+                  ]
+                },
+                {
+                  "label": "Embodied.cpp",
+                  "text": "A portable runtime for embodied model inference on heterogeneous robot platforms.",
+                  "refs": [
+                    { "label": "Code", "href": "https://github.com/SEU-PAISys/Embodied.cpp", "githubRepository": "SEU-PAISys/Embodied.cpp" }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "On-Device AI · Memory & Kernel Optimization",
+          "period": "2022–2025",
+          "entries": [
+            {
+              "title": "Vec-LUT: Parallel Ultra-Low-Bit LLM Inference",
+              "role": "Co-first author",
+              "distinction": "Best Paper Award Runner-Up",
+              "venue": "MobiSys 2026",
+              "bullets": [
+                "Introduced vector-table lookup for mixed-precision matrix multiplication in parallel ultra-low-bit LLM inference.",
+                {
+                  "text": "Up to 4.2× faster and 2.1× more energy-efficient across five x86/ARM devices.",
+                  "highlights": ["4.2×", "2.1×"]
+                }
+              ],
+              "paperRefs": [{ "id": "vec-lut", "include": ["paper", "code"] }]
+            },
+            {
+              "title": "FlexNN: Efficient and Adaptive DNN Memory Management",
+              "role": "First author",
+              "venue": "MobiCom 2024",
+              "bullets": [
+                "Jointly planned layer splitting, loading, and execution for fine-grained memory control.",
+                {
+                  "text": "For ResNet-152 on Pixel 6 Pro, cut memory by 93.81% with 3.64% latency overhead; replanning takes about 1 s.",
+                  "highlights": ["93.81%", "3.64%", "1 s"]
+                }
+              ],
+              "paperRefs": [{ "id": "flexnn", "include": ["paper", "code"] }]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": "03",
+      "label": "Industry",
+      "english": "INDUSTRY",
+      "entries": [
+        {
+          "title": "ByteDance",
+          "meta": "Big Data Infrastructure Intern · Product Engineering & Architecture",
+          "date": "Jun–Sep 2021",
+          "bullets": [
+            "Contributed to FaaS/serverless infrastructure for high-concurrency workloads with elastic scaling.",
+            "Optimized node image update and caching policies to reduce service cold-start overhead."
+          ]
+        }
+      ]
+    },
+    {
+      "index": "04",
+      "label": "Projects",
+      "english": "PROJECTS",
+      "entries": [
+        {
+          "title": "Hisense: 2-Bit LLM Quantization and Inference",
+          "meta": "Primary contributor",
+          "date": "Sep 2025–Jun 2026",
+          "bullets": [
+            "Built a 2-bit quantization-aware training and inference pipeline with vLLM integration.",
+            {
+              "text": "On A100/A40, Qwen3 1.7B/4B/8B INT2 stayed within 1% of BF16 accuracy and ran 1.3× faster than INT4.",
+              "highlights": ["within 1%", "1.3×"]
+            }
+          ]
+        },
+        {
+          "title": "BMW: On-Device LLM Deployment for In-Car Assistants",
+          "meta": "On-device deployment",
+          "date": "Dec 2023–Apr 2024",
+          "bullets": ["Quantized and deployed a lightweight in-car LLM on Qualcomm hardware with llama.cpp."]
+        }
+      ]
+    },
+    {
+      "index": "05",
+      "label": "Honors",
+      "english": "HONORS & AWARDS",
+      "entries": [
+        {
+          "bullets": [
+            {
+              "text": "ACM MobiSys 2026 Best Paper Award Runner-Up (2026)",
+              "highlights": ["Best Paper Award Runner-Up"]
+            },
+            "ACM MobiSys 2026 Student Travel Grant (2026)",
+            "AIR Qingzhi Scholarship, Tsinghua University (2025)",
+            "Jining Talent Scholarship, Tsinghua University (2025)",
+            "Outstanding Student Service Scholarship, Tsinghua University (2021)",
+            "Grand Prize, Beijing College Physics Competition, Non-Physics Division (2019)"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "name": "resume",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "npm run sync:homepage && vite --host 127.0.0.1",
+    "dev:cached": "vite --host 127.0.0.1",
+    "sync:homepage": "node scripts/sync-homepage.mjs",
+    "build": "vite build",
+    "build:sync": "npm run sync:homepage && vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "render": "npm run build:sync && node scripts/render.mjs",
+    "render:cached": "npm run build && node scripts/render.mjs",
+    "render:readme-preview": "node scripts/render-readme-preview.mjs"
+  },
+  "dependencies": {
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1",
+    "smol-toml": "1.8.0",
+    "vite": "8.2.2"
+  }
+}

@@ -1,0 +1,94 @@
+name: Deploy resume to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout resume
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Checkout personal homepage data
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          repository: xxxxyu/xxxxyu.github.io
+          path: homepage
+
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with:
+          node-version: lts/*
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Chromium renderer
+        run: npx playwright install --with-deps chromium
+
+      - name: Sync data and build
+        run: npm run build:sync
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HOMEPAGE_REPO: homepage
+          RESUME_BASE_PATH: /resume/
+
+      - name: Verify bundled fonts
+        run: |
+          for font in \
+            NotoSansSC-SiteSubset.woff2 \
+            NotoSerifSC-SiteSubset.woff2 \
+            SourceSans3VF-Upright.ttf.woff2 \
+            SourceSerif4Variable-Roman.ttf.woff2
+          do
+            test -s "dist/fonts/$font"
+          done
+
+      - name: Render PDF documents
+        run: node scripts/render.mjs
+        env:
+          RESUME_BASE_PATH: /resume/
+
+      - name: Add PDF downloads to Pages
+        run: |
+          mkdir -p dist/downloads/zh dist/downloads/en
+          cp output/zh/*.pdf dist/downloads/zh/
+          cp output/en/*.pdf dist/downloads/en/
+
+      - name: Upload PDF documents
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        with:
+          name: resume-pdfs
+          path: |
+            output/zh/*.pdf
+            output/en/*.pdf
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5
+        with:
+          path: dist
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128 # v5

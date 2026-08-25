@@ -1,0 +1,249 @@
+{
+  "profile": {
+    "lang": "zh-CN",
+    "name": "李翔宇",
+    "latinName": "XIANGYU LI",
+    "affiliation": "清华大学智能产业研究院（AIR）博士研究生",
+    "fields": "端侧智能高效部署 · 自进化物理智能",
+    "updated": "更新于 2026.08",
+    "contact": [
+      { "label": "(+86) 159 1091 2361" },
+      { "label": "lixiangy22@mails.tsinghua.edu.cn", "href": "mailto:lixiangy22@mails.tsinghua.edu.cn" },
+      { "label": "github.com/xxxxyu", "href": "https://github.com/xxxxyu" },
+      { "label": "xxxxyu.github.io", "href": "https://xxxxyu.github.io" },
+      { "label": "Google Scholar", "href": "https://scholar.google.com/citations?user=IjoWeIMAAAAJ" }
+    ]
+  },
+  "ui": {
+    "preview": {
+      "ariaLabel": "预览模式",
+      "title": "网页版预览",
+      "pageSize": "A4 · 210 × 297 mm",
+      "notice": {
+        "ariaLabel": "联系与模板使用说明",
+        "items": [
+          {
+            "label": "希望建联",
+            "segments": [
+              "欢迎通过 ",
+              { "label": "Email", "href": "mailto:lixiangy22@mails.tsinghua.edu.cn" },
+              " / 微信联系。请简单注明来意，以及从哪里关注到我。"
+            ]
+          },
+          {
+            "label": "借鉴模板",
+            "segments": [
+              "欢迎 fork / clone ",
+              { "label": "GitHub 仓库", "href": "https://github.com/xxxxyu/resume" },
+              " 按需修改。你的 star 对我很重要，多谢！"
+            ]
+          }
+        ]
+      },
+      "tabs": [
+        { "id": "one-page", "label": "单页简历" },
+        { "id": "publications", "label": "论文列表" },
+        { "id": "complete", "label": "完整版" }
+      ],
+      "print": "打印 / 导出 PDF"
+    },
+    "resume": {
+      "footer": "完整论文列表见下页"
+    },
+    "papers": {
+      "kicker": "PUBLICATIONS & PREPRINTS",
+      "title": "论文列表",
+      "totalPrefix": "共 ",
+      "totalSuffix": " 篇",
+      "citationLabel": "Google Scholar 引用",
+      "ariaLabel": "完整论文列表",
+      "continuationText": "剩余预印本见下页",
+      "footerLegend": "* 表示同等贡献；† / ‡ 沿用原论文作者标注。"
+    }
+  },
+  "paperGroups": [
+    { "id": "publication", "label": "已发表", "english": "PUBLICATIONS" },
+    { "id": "preprint", "label": "预印本", "english": "PREPRINTS" }
+  ],
+  "paperOverrides": {},
+  "sections": [
+    {
+      "index": "01",
+      "label": "教育经历",
+      "english": "Education",
+      "entries": [
+        {
+          "title": "清华大学",
+          "meta": "智能产业研究院（AIR） · 电子工程系 · 博士研究生",
+          "date": "2022.09–2027.06（预计）",
+          "lines": [
+            "研究端侧智能与具身智能；导师为刘云新教授，与曹婷教授密切合作。"
+          ]
+        },
+        {
+          "title": "清华大学",
+          "meta": "电子工程系 · 工学学士",
+          "date": "2018.09–2022.06",
+          "lines": ["研究图挖掘系统；曾任电子系学生科协软件部部长、副主席。"]
+        }
+      ]
+    },
+    {
+      "index": "02",
+      "label": "研究经历",
+      "english": "Research",
+      "groups": [
+        {
+          "title": "具身智能（端侧部署，自进化闭环）",
+          "english": "Embodied AI",
+          "period": "2025–至今",
+          "entries": [
+            {
+              "title": "OxyGen：多任务并行 VLA 推理加速",
+              "role": "第一作者",
+              "venue": "under review",
+              "bullets": [
+                "面向多任务（动作、语言）并行场景，提出跨任务、跨帧的统一 KV Cache 管理。",
+                {
+                  "text": "π0.5 在 RTX 4090 上至多加速 3.7×，同时达到 >200 tokens/s 语言吞吐、70 Hz 动作频率。",
+                  "highlights": ["3.7×", ">200 tokens/s", "70 Hz"]
+                }
+              ],
+              "paperRefs": [{ "id": "oxygen", "include": ["paper", "code", "page"] }]
+            },
+            {
+              "title": "ActProbe：机器人策略早期失败检测",
+              "role": "共同一作",
+              "venue": "under review",
+              "bullets": [
+                "面向机器人策略模型的部署，设计轻量动作空间探针，在执行早期预测可能失败。",
+                {
+                  "text": "准确性与预警提前量的帕累托前沿面积提升 12.7%，未见任务的早期失败识别能力提升 9.0%。",
+                  "highlights": ["12.7%", "9.0%"]
+                }
+              ],
+              "paperRefs": [{ "id": "actprobe", "include": ["paper", "code", "page"] }]
+            },
+            {
+              "title": "具身智能开源框架：Harness & Infra",
+              "meta": "参与",
+              "bullets": [
+                {
+                  "label": "Zetta ζ",
+                  "text": "面向自进化物理智能的高效闭环具身 Harness，支持自主探索与持续提升。",
+                  "refs": [
+                    { "label": "代码", "href": "https://github.com/air-embodied-brain/Zetta-Embodiment", "githubRepository": "air-embodied-brain/Zetta-Embodiment" }
+                  ]
+                },
+                {
+                  "label": "Embodied.cpp",
+                  "text": "面向异构机器人平台的可移植具身模型推理运行时。",
+                  "refs": [
+                    { "label": "代码", "href": "https://github.com/SEU-PAISys/Embodied.cpp", "githubRepository": "SEU-PAISys/Embodied.cpp" }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "端侧智能（内存管理，算子优化）",
+          "english": "On-Device AI",
+          "period": "2022–2025",
+          "entries": [
+            {
+              "title": "Vec-LUT：端侧低比特 LLM 并行推理加速",
+              "role": "共同一作",
+              "distinction": "Best Paper Award Runner-Up",
+              "venue": "MobiSys 2026",
+              "bullets": [
+                "面向端侧超低比特 LLM 并行推理，提出向量查找表，加速混合精度矩阵乘法。",
+                {
+                  "text": "五款 x86 / ARM 设备上相比 llama.cpp 等框架至多加速 4.2×；能效（token/J）提升至多 2.1×。",
+                  "highlights": ["4.2×", "2.1×"]
+                }
+              ],
+              "paperRefs": [{ "id": "vec-lut", "include": ["paper", "code"] }]
+            },
+            {
+              "title": "FlexNN：面向内存受限设备的高效自适应内存管理",
+              "role": "第一作者",
+              "venue": "MobiCom 2024",
+              "bullets": [
+                "面向内存受限设备，提出层切分、加载与计算联合规划，实现细粒度内存管理。",
+                {
+                  "text": "ResNet-152 在 Pixel 6 Pro 上内存降低 93.81%，延迟仅增 3.64%，重规划开销约 1 s。",
+                  "highlights": ["93.81%", "3.64%", "1 s"]
+                }
+              ],
+              "paperRefs": [{ "id": "flexnn", "include": ["paper", "code"] }]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": "03",
+      "label": "工作经历",
+      "english": "Industry",
+      "entries": [
+        {
+          "title": "字节跳动",
+          "meta": "产品研发和工程架构部 · 大数据架构实习生",
+          "date": "2021.06–2021.09",
+          "bullets": [
+            "面向高并发与弹性扩缩容负载，参与 FaaS / Serverless 基础设施研发。",
+            "优化节点镜像更新与缓存策略，降低服务冷启动开销。"
+          ]
+        }
+      ]
+    },
+    {
+      "index": "04",
+      "label": "项目经历",
+      "english": "Projects",
+      "entries": [
+        {
+          "title": "海信：LLM 低比特量化与云侧推理优化",
+          "meta": "负责主要工作",
+          "date": "2025.09–2026.06",
+          "bullets": [
+            "面向业务垂域任务，提出 2-bit 量化感知训练与推理方案，基于 vLLM 适配并调优。",
+            {
+              "text": "基于 Qwen3-1.7B/4B/8B 在 A100 / A40 上，INT2 相比 BF16 精度损失 < 1%，相比 INT4 加速 1.3×。",
+              "highlights": ["< 1%", "1.3×"]
+            }
+          ]
+        },
+        {
+          "title": "宝马：面向智能座舱的轻量 LLM 定制与部署",
+          "meta": "负责端侧部署",
+          "date": "2023.12–2024.04",
+          "bullets": [
+            "面向智能座舱轻量 LLM，基于 llama.cpp 完成高通平台上的量化部署。"
+          ]
+        }
+      ]
+    },
+    {
+      "index": "05",
+      "label": "荣誉奖励",
+      "english": "Honors & Awards",
+      "entries": [
+        {
+          "bullets": [
+            {
+              "text": "ACM MobiSys 2026 Best Paper Award Runner-Up（2026）",
+              "highlights": ["Best Paper Award Runner-Up"]
+            },
+            "ACM MobiSys Student Travel Grant（2026）",
+            "清华之友–智能产业研究院清智奖学金（2025）",
+            "清华之友–济宁英才奖学金（2025）",
+            "清华大学社会工作优秀奖学金（2021）",
+            "全国部分地区大学生物理竞赛非物理类 A 组特等奖（2019）"
+          ]
+        }
+      ]
+    }
+  ]
+}

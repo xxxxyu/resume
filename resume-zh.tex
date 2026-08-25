@@ -1,0 +1,67 @@
+% !TeX program = lualatex
+\documentclass{resume-refined}
+
+\begin{document}
+
+\ResumeHeader
+  {李翔宇}
+  {XIANGYU LI}
+  {清华大学智能产业研究院（AIR）博士研究生 · 端侧智能 / 具身智能 / 机器学习系统}
+  {电话 / 微信：(+86) 159 1091 2361\quad·\quad \href{mailto:xiangyu.sdlc@foxmail.com}{xiangyu.sdlc@foxmail.com}}
+  {\href{https://xxxxyu.github.io}{xxxxyu.github.io}\quad·\quad \href{https://scholar.google.com/citations?user=IjoWeIMAAAAJ}{Google Scholar}\quad·\quad \href{https://github.com/xxxxyu}{github.com/xxxxyu}\quad·\quad 更新于 2026.08}
+
+\ResumeSection{教育经历}{EDUCATION}
+\ResumeItem{清华大学}{智能产业研究院（AIR） · 博士研究生}{2022.09--2027.06}
+\ResumeLine{研究方向：端侧智能、具身智能、机器学习系统；导师：刘云新教授。获清华之友--智能产业研究院清智奖学金（2025）、清华之友--济宁英才奖学金（2024）。}
+\ResumeItem{清华大学}{电子工程系 · 工学学士}{2018.09--2022.06}
+\ResumeLine{研究方向：图挖掘系统。曾任电子系学生科协软件部部长、副主席；获清华大学社会工作优秀奖学金。}
+
+\ResumeSection{研究经历}{RESEARCH}
+\ResumeItem{ActProbe / EmbodiSkill：具身智能体失败检测与反思优化}{共同一作 / 参与}{2026.02--至今}
+\begin{itemize}
+  \item 研究机器人策略早期失败检测与技能级反思闭环；完成 action-space probe 与 skill-aware reflection 的方法设计和实验。\Links{\href{https://arxiv.org/abs/2606.08508}{ActProbe 论文} / \href{https://github.com/air-embodied-brain/actprobe}{代码} / \href{https://arxiv.org/abs/2605.10332}{EmbodiSkill 论文}}
+\end{itemize}
+
+\ResumeItem{OxyGen：面向多任务并行 VLA 推理的统一 KV Cache 管理}{第一作者}{2025.07--2026.03}
+\begin{itemize}
+  \item 面向多任务并行推理的内存与计算开销，重新组织任务间和视频帧间可复用的推理状态。
+  \item 提出统一 KV Cache 管理方法，支持跨任务复用与跨帧持续解码，并基于 openpi 完成系统实现。
+  \item 在单卡 RTX 4090 上至多加速 \Metric{3.7×}，同时达到 \Metric{200 tokens/s} 文本吞吐与 \Metric{70 Hz} 动作频率。\Links{\href{https://arxiv.org/abs/2603.14371}{论文} / \href{https://github.com/air-embodied-brain/OxyGen}{代码}}
+\end{itemize}
+
+\ResumeItem{Vec-LUT：基于向量查找表的低比特 LLM 推理加速}{共同一作 · MobiSys 2026}{2024.07--2025.05}
+\begin{itemize}
+  \item 针对低比特量化缺乏混合精度硬件支持、实际加速远低于理论上限的问题，重新设计矩阵乘执行路径。
+  \item 提出向量查找表矩阵乘范式，并基于 llama.cpp 完成移动端与边缘服务器实现。
+  \item 三值 LLM 至多获得 \Metric{4.2×} 端到端加速，CPU 双核性能超过 NPU；获 MobiSys 2026 Featured Paper。\Links{\href{https://dl.acm.org/doi/10.1145/3745756.3809200}{论文} / \href{https://github.com/OpenBitSys/vlut.cpp}{代码}}
+\end{itemize}
+
+\ResumeItem{FlexNN：面向内存受限设备的自适应模型内存管理}{第一作者 · MobiCom 2024}{2022.01--2023.08}
+\begin{itemize}
+  \item 面向端侧设备“模型放不下”的部署瓶颈，从系统层协调模型切分、内存占用与执行开销。
+  \item 提出张量级层切分、加载与计算联合规划方法，并基于 ncnn 完成系统实现。
+  \item 在手机与嵌入式设备上节省至多 \Metric{93.8\%} 内存，仅增加 \Metric{3.6\%} 推理延迟，适应开销小于 1 秒。\Links{\href{https://dl.acm.org/doi/10.1145/3636534.3649391}{论文} / \href{https://github.com/xxxxyu/FlexNN}{代码}}
+\end{itemize}
+
+\ResumeSection{工作经历}{INDUSTRY}
+\ResumeItem{字节跳动}{产品研发和工程架构部 · 大数据架构实习生}{2021.06--2021.09}
+\begin{itemize}
+  \item 参与 FaaS 基础设施研发，支持上游业务的高并发与弹性扩缩容负载。
+  \item 独立完成节点镜像更新与缓存策略优化，将 worst-case 冷启动开销降低 \Metric{3--4 个数量级}，提升线上系统 QoS。
+\end{itemize}
+
+\ResumeSection{项目经历}{PROJECTS}
+\ResumeItem{海信：云侧与端侧 LLM / VLM 推理加速}{负责项目主要工作}{2025.09--2026.06}
+\begin{itemize}
+  \item 负责垂域 LLM 低比特训练与算子优化：INT2 相比 FP16 准确率损失小于 \Metric{1\%}，A40 上相比 INT4 至多加速 \Metric{1.9×}。
+  \item 负责端侧 VLM 多模态压缩，推进视觉 token 压缩方法与端侧 NPU 部署。
+\end{itemize}
+\ResumeItem{宝马：面向智能座舱的轻量 LLM 定制与部署}{负责端侧部署}{2023.12--2024.04}
+\begin{itemize}
+  \item 在高通芯片上部署量化模型，获得 \Metric{5.2×} 内存节省与 \Metric{6.4×} 推理加速。
+\end{itemize}
+
+\ResumeSection{技能与工具}{SKILLS}
+\ResumeLine{\Tag{语言与系统：}C/C++、Python、Linux、各类端侧设备。\quad \Tag{框架与方法：}vLLM、llama.cpp、ncnn、PyTorch；模型微调、蒸馏、量化与推理部署。}
+
+\end{document}

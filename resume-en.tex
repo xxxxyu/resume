@@ -1,0 +1,67 @@
+% !TeX program = lualatex
+\documentclass{resume-refined}
+
+\begin{document}
+
+\ResumeHeader
+  {Xiangyu Li}
+  {李翔宇}
+  {Ph.D. Candidate, Institute for AI Industry Research (AIR), Tsinghua University · Edge AI / Embodied AI / ML Systems}
+  {Phone / WeChat: (+86) 159 1091 2361\quad·\quad \href{mailto:xiangyu.sdlc@foxmail.com}{xiangyu.sdlc@foxmail.com}}
+  {\href{https://xxxxyu.github.io}{xxxxyu.github.io}\quad·\quad \href{https://scholar.google.com/citations?user=IjoWeIMAAAAJ}{Google Scholar}\quad·\quad \href{https://github.com/xxxxyu}{github.com/xxxxyu}\quad·\quad Updated Aug 2026}
+
+\ResumeSection{Education}{EDUCATION}
+\ResumeItem{Tsinghua University}{AIR · Ph.D. in Computer Science}{Sep 2022--Jun 2027}
+\ResumeLine{Research: edge AI, embodied AI, and machine learning systems. Advisor: Prof. Yunxin Liu. Tsinghua Friends--AIR Qingzhi Scholarship (2025); Jining Talent Scholarship (2024).}
+\ResumeItem{Tsinghua University}{Department of Electronic Engineering · B.Eng.}{Sep 2018--Jun 2022}
+\ResumeLine{Research: graph mining systems. Former vice president of the department's student science association; Outstanding Social Work Scholarship.}
+
+\ResumeSection{Research Experience}{RESEARCH}
+\ResumeItem{ActProbe / EmbodiSkill: failure detection and reflective optimization for embodied agents}{Co-first author / Contributor}{Feb 2026--Present}
+\begin{itemize}
+  \item Developed early failure detection and skill-level reflection loops for robot policies, covering action-space probes and skill-aware reflection. \Links{\href{https://arxiv.org/abs/2606.08508}{ActProbe paper} / \href{https://github.com/air-embodied-brain/actprobe}{code} / \href{https://arxiv.org/abs/2605.10332}{EmbodiSkill paper}}
+\end{itemize}
+
+\ResumeItem{OxyGen: unified KV cache management for multi-task parallel VLA inference}{First author}{Jul 2025--Mar 2026}
+\begin{itemize}
+  \item Reorganized reusable inference state across concurrent tasks and video frames to reduce the memory and compute cost of parallel VLA execution.
+  \item Designed unified KV-cache management for cross-task reuse and cross-frame decoding, implemented on openpi.
+  \item Achieved up to \Metric{3.7×} speedup on one RTX 4090 while sustaining \Metric{200 tokens/s} text throughput and \Metric{70 Hz} action frequency. \Links{\href{https://arxiv.org/abs/2603.14371}{paper} / \href{https://github.com/air-embodied-brain/OxyGen}{code}}
+\end{itemize}
+
+\ResumeItem{Vec-LUT: vector table lookup for ultra-low-bit LLM inference}{Co-first author · MobiSys 2026}{Jul 2024--May 2025}
+\begin{itemize}
+  \item Redesigned the matrix-multiplication path to close the gap between theoretical low-bit savings and hardware without mixed-precision support.
+  \item Introduced a vector lookup-table paradigm for mixed-precision matrix multiplication and implemented it in llama.cpp across mobile and edge platforms.
+  \item Accelerated ternary LLMs by up to \Metric{4.2×} end to end, with two CPU cores outperforming the NPU; MobiSys 2026 Featured Paper. \Links{\href{https://dl.acm.org/doi/10.1145/3745756.3809200}{paper} / \href{https://github.com/OpenBitSys/vlut.cpp}{code}}
+\end{itemize}
+
+\ResumeItem{FlexNN: adaptive model memory management for constrained edge devices}{First author · MobiCom 2024}{Jan 2022--Aug 2023}
+\begin{itemize}
+  \item Addressed model fit as a systems problem by coordinating partitioning, memory footprint, and execution cost on constrained devices.
+  \item Jointly planned tensor-level partitioning, loading, and execution in an ncnn implementation.
+  \item Reduced memory by up to \Metric{93.8\%} with only \Metric{3.6\%} latency overhead on phones and embedded devices, adapting in under one second. \Links{\href{https://dl.acm.org/doi/10.1145/3636534.3649391}{paper} / \href{https://github.com/xxxxyu/FlexNN}{code}}
+\end{itemize}
+
+\ResumeSection{Industry Experience}{INDUSTRY}
+\ResumeItem{ByteDance}{Product R\&D and Engineering Architecture · Big Data Infrastructure Intern}{Jun 2021--Sep 2021}
+\begin{itemize}
+  \item Built FaaS infrastructure for high-concurrency workloads and elastic scaling across upstream products.
+  \item Independently optimized node-image updates and caching, reducing worst-case cold-start overhead by \Metric{3--4 orders of magnitude} and improving production QoS.
+\end{itemize}
+
+\ResumeSection{Selected Projects}{PROJECTS}
+\ResumeItem{Hisense: cloud and on-device LLM / VLM inference acceleration}{Technical lead}{Sep 2025--Jun 2026}
+\begin{itemize}
+  \item Led low-bit training and kernels for a domain LLM: INT2 lost under \Metric{1\%} accuracy versus FP16 and ran up to \Metric{1.9×} faster than INT4 on A40.
+  \item Advanced multimodal compression for an on-device VLM, including visual-token reduction and NPU deployment.
+\end{itemize}
+\ResumeItem{BMW: lightweight LLM customization for intelligent cockpits}{On-device deployment lead}{Dec 2023--Apr 2024}
+\begin{itemize}
+  \item Deployed quantized models on Qualcomm hardware, cutting memory by \Metric{5.2×} and accelerating inference by \Metric{6.4×}.
+\end{itemize}
+
+\ResumeSection{Skills}{SKILLS}
+\ResumeLine{\Tag{Languages and systems:} C/C++, Python, Linux, edge hardware.\quad \Tag{Frameworks and methods:} vLLM, llama.cpp, ncnn, PyTorch; fine-tuning, distillation, quantization, and inference deployment.}
+
+\end{document}

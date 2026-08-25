@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useLayoutEffect, useMemo, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { getDocumentData } from "./data/index.js";
 import { PapersPages } from "./documents/publications.jsx";
 import { ResumePage } from "./documents/resume.jsx";
 import "./styles/main.css";
 
-function routeFor(locale, mode, palette) {
+function routeFor({ locale, mode, palette }) {
   const params = new URLSearchParams({ locale });
   if (mode === "publications") params.set("document", "publications");
   else params.set("edition", mode);
@@ -13,23 +13,51 @@ function routeFor(locale, mode, palette) {
   return `?${params.toString()}`;
 }
 
-function PreviewToolbar({ locale, mode, palette, ui }) {
+function routeFromLocation() {
+  const params = new URLSearchParams(window.location.search);
+  const legacyView = params.get("view");
+  return {
+    locale: params.get("locale") === "en" ? "en" : "zh",
+    palette: params.get("palette") === "mono" ? "mono" : "color",
+    mode: params.get("document") === "publications" || legacyView === "papers"
+      ? "publications"
+      : params.get("edition") === "one-page" || legacyView === "resume"
+        ? "one-page"
+        : "complete"
+  };
+}
+
+function PreviewLink({ active, children, onNavigate, route }) {
+  const handleClick = (event) => {
+    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+    onNavigate(route);
+  };
+  return (
+    <a className={active ? "active" : ""} aria-current={active ? "page" : undefined} href={routeFor(route)} onClick={handleClick}>
+      {children}
+    </a>
+  );
+}
+
+function PreviewToolbar({ onNavigate, route, ui }) {
+  const { locale, mode, palette } = route;
   return (
     <nav className="preview-toolbar" aria-label={ui.ariaLabel}>
       <div className="preview-title"><strong>{ui.title}</strong><span>{ui.pageSize}</span></div>
       <div className="preview-controls">
         <div className="preview-tabs preview-locales" aria-label="Language">
-          <a className={locale === "zh" ? "active" : ""} aria-current={locale === "zh" ? "page" : undefined} href={routeFor("zh", mode, palette)}>中文</a>
-          <a className={locale === "en" ? "active" : ""} aria-current={locale === "en" ? "page" : undefined} href={routeFor("en", mode, palette)}>English</a>
+          <PreviewLink active={locale === "zh"} onNavigate={onNavigate} route={{ ...route, locale: "zh" }}>中文</PreviewLink>
+          <PreviewLink active={locale === "en"} onNavigate={onNavigate} route={{ ...route, locale: "en" }}>English</PreviewLink>
         </div>
         <div className="preview-tabs">
           {ui.tabs.map((tab) => (
-            <a key={tab.id} className={mode === tab.id ? "active" : ""} aria-current={mode === tab.id ? "page" : undefined} href={routeFor(locale, tab.id, palette)}>{tab.label}</a>
+            <PreviewLink key={tab.id} active={mode === tab.id} onNavigate={onNavigate} route={{ ...route, mode: tab.id }}>{tab.label}</PreviewLink>
           ))}
         </div>
         <div className="preview-tabs preview-palettes" aria-label={ui.palette.ariaLabel}>
-          <a className={palette === "color" ? "active" : ""} aria-current={palette === "color" ? "page" : undefined} href={routeFor(locale, mode, "color")}>{ui.palette.color}</a>
-          <a className={palette === "mono" ? "active" : ""} aria-current={palette === "mono" ? "page" : undefined} href={routeFor(locale, mode, "mono")}>{ui.palette.mono}</a>
+          <PreviewLink active={palette === "color"} onNavigate={onNavigate} route={{ ...route, palette: "color" }}>{ui.palette.color}</PreviewLink>
+          <PreviewLink active={palette === "mono"} onNavigate={onNavigate} route={{ ...route, palette: "mono" }}>{ui.palette.mono}</PreviewLink>
         </div>
       </div>
       <button type="button" onClick={() => window.print()}>{ui.print}</button>
@@ -78,33 +106,53 @@ function updatePreviewScale() {
 updatePreviewScale();
 window.addEventListener("resize", updatePreviewScale, { passive: true });
 
-const params = new URLSearchParams(window.location.search);
-const legacyView = params.get("view");
-const locale = params.get("locale") === "en" ? "en" : "zh";
-const palette = params.get("palette") === "mono" ? "mono" : "color";
-const mode = params.get("document") === "publications" || legacyView === "papers"
-  ? "publications"
-  : params.get("edition") === "one-page" || legacyView === "resume"
-    ? "one-page"
-    : "complete";
-const { resumeData, paperListData } = getDocumentData(locale);
+const initialRoute = routeFromLocation();
+document.documentElement.dataset.palette = initialRoute.palette;
 
-document.documentElement.lang = resumeData.profile.lang;
-document.documentElement.dataset.palette = palette;
-document.body.dataset.locale = locale;
-document.body.dataset.mode = mode;
-document.title = `${resumeData.profile.name} — Resume`;
+function App() {
+  const [route, setRoute] = useState(initialRoute);
+  const { locale, mode, palette } = route;
+  const { resumeData, paperListData } = useMemo(() => getDocumentData(locale), [locale]);
 
-const documentView = mode === "publications"
-  ? <div className="page-stack"><PapersPages data={paperListData} /></div>
-  : mode === "complete"
-    ? <CompleteDocument resumeData={resumeData} paperListData={paperListData} />
-    : <ResumePage data={resumeData} />;
+  useLayoutEffect(() => {
+    document.documentElement.lang = resumeData.profile.lang;
+    document.documentElement.dataset.palette = palette;
+    document.body.dataset.locale = locale;
+    document.body.dataset.mode = mode;
+    document.title = `${resumeData.profile.name} — Resume`;
+  }, [locale, mode, palette, resumeData.profile.lang, resumeData.profile.name]);
 
-createRoot(document.getElementById("root")).render(
-  <div className="preview-stage">
-    <PreviewNotice notice={resumeData.ui.preview.notice} />
-    <PreviewToolbar locale={locale} mode={mode} palette={palette} ui={resumeData.ui.preview} />
-    {documentView}
-  </div>
-);
+  useEffect(() => {
+    const handlePopState = () => {
+      const nextRoute = routeFromLocation();
+      document.documentElement.dataset.palette = nextRoute.palette;
+      setRoute(nextRoute);
+    };
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
+
+  const navigate = (nextRoute) => {
+    const nextUrl = routeFor(nextRoute);
+    if (window.location.search === nextUrl) return;
+    document.documentElement.dataset.palette = nextRoute.palette;
+    window.history.pushState(null, "", nextUrl);
+    setRoute(nextRoute);
+  };
+
+  const documentView = mode === "publications"
+    ? <div className="page-stack"><PapersPages data={paperListData} /></div>
+    : mode === "complete"
+      ? <CompleteDocument resumeData={resumeData} paperListData={paperListData} />
+      : <ResumePage data={resumeData} />;
+
+  return (
+    <div className="preview-stage">
+      <PreviewNotice notice={resumeData.ui.preview.notice} />
+      <PreviewToolbar onNavigate={navigate} route={route} ui={resumeData.ui.preview} />
+      {documentView}
+    </div>
+  );
+}
+
+createRoot(document.getElementById("root")).render(<App />);

@@ -328,8 +328,8 @@ time { color: var(--muted); font-size: 8pt; font-variant-numeric: tabular-nums; 
 .paper-authors strong { color: var(--blue); font-weight: 750; }
 .paper-detail { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.3mm 1.1mm; margin-top: 0.2mm; font-size: 8pt; line-height: 1.5; }
 .paper-venue { color: var(--ink); font-weight: 670; }
-.paper-note { color: var(--red); font-weight: 680; }
-.paper-note-ae { color: var(--ink); }
+.paper-note { color: var(--ink); font-weight: 600; }
+.paper-note-highlight { color: var(--red); font-weight: 680; }
 .paper-detail .refs { margin-left: 0.2mm; font-size: 8pt; }
 .paper-page-limit { position: absolute; right: 14mm; bottom: 17.5mm; left: 14mm; height: 0; pointer-events: none; }
 .paper-continuation-cue { position: absolute; right: 14mm; bottom: 11.5mm; display: flex; align-items: center; gap: 1.5mm; color: var(--blue); font-family: "Source Serif 4", "Noto Serif SC Resume", serif; font-size: 7pt; font-weight: 650; line-height: 1.5; letter-spacing: 0.035em; }

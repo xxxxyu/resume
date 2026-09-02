@@ -135,17 +135,17 @@
               "bullets": [
                 {
                   "label": "Zeva · Model",
-                  "text": "以双时间尺度因果记忆实现部署时上下文学习，使冻结策略从交互中持续适应。",
-                  "paperRefs": [{ "id": "zeva", "include": ["code"] }]
+                  "text": "通过双时间尺度因果记忆实现上下文因果学习，使冻结策略不更新权重也能持续适应。",
+                  "paperRefs": [{ "id": "zeva", "include": ["page"] }]
                 },
                 {
                   "label": "Zetta ζ · Harness & Infra",
-                  "text": "闭环自进化系统，在线演化运行时评判器与恢复技能。",
+                  "text": "动作频率闭环监测与恢复，将 rollout 经验演进为可复用技能。",
                   "paperRefs": [{ "id": "zetta", "include": ["code"] }]
                 },
                 {
                   "label": "Embodied.cpp · Runtime",
-                  "text": "面向 CPU / CUDA GPU / NPU 的可移植 VLA / WAM 推理运行时。",
+                  "text": "为 VLA / WAM 提供跨 CPU、CUDA GPU 与 NPU 的可移植推理运行时。",
                   "paperRefs": [{ "id": "embodied-cpp", "include": ["code"] }]
                 }
               ]

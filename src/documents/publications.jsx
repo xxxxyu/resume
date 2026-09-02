@@ -10,11 +10,11 @@ function Authors({ value }) {
 }
 
 function PaperNotes({ value }) {
-  const aePattern = /(Results (?:Reproduced|Replicated) @AE)/gi;
+  const highlightPattern = /(Best Paper Award Runner-Up)/gi;
   return (
     <span className="paper-note">
-      {value.split(aePattern).map((part, index) => /^Results (?:Reproduced|Replicated) @AE$/i.test(part)
-        ? <span className="paper-note-ae" key={index}>{part}</span>
+      {value.split(highlightPattern).map((part, index) => /^Best Paper Award Runner-Up$/i.test(part)
+        ? <span className="paper-note-highlight" key={index}>{part}</span>
         : part
       )}
     </span>

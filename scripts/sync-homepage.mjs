@@ -68,13 +68,21 @@ function normalizeLinks(paper) {
     slides_url: ["slides", "幻灯"],
     model_url: ["models", "模型"]
   };
-  return Object.entries(labels).flatMap(([key, [kind, label]]) =>
+  const canonicalLinks = Object.entries(labels).flatMap(([key, [kind, label]]) =>
     paper[key] ? [{
       kind,
       label,
       href: paper[key].startsWith("/") ? new URL(paper[key], homepageUrl).href : paper[key]
     }] : []
   );
+  const pressLinks = (paper.press_links || []).flatMap(({ label, url }) =>
+    label && url ? [{
+      kind: "press",
+      label,
+      href: url.startsWith("/") ? new URL(url, homepageUrl).href : url
+    }] : []
+  );
+  return [...canonicalLinks, ...pressLinks];
 }
 
 function normalizeNotes(notes = "") {

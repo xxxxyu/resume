@@ -130,17 +130,17 @@
               "bullets": [
                 {
                   "label": "Zeva · Model",
-                  "text": "Frozen-policy adaptation via in-context learning over dual-timescale causal memory.",
-                  "paperRefs": [{ "id": "zeva", "include": ["code"] }]
+                  "text": "Dual-timescale causal memory lets frozen policies adapt online without weight updates.",
+                  "paperRefs": [{ "id": "zeva", "include": ["page"] }]
                 },
                 {
                   "label": "Zetta ζ · Harness & Infra",
-                  "text": "Closed-loop self-evolution with online runtime critics and recovery skills.",
+                  "text": "Action-level monitoring and recovery evolve rollouts into reusable skills.",
                   "paperRefs": [{ "id": "zetta", "include": ["code"] }]
                 },
                 {
                   "label": "Embodied.cpp · Runtime",
-                  "text": "Portable VLA/WAM inference across CPU, CUDA GPU, and NPU.",
+                  "text": "Portable VLA/WAM inference across CPUs, CUDA GPUs, and NPUs.",
                   "paperRefs": [{ "id": "embodied-cpp", "include": ["code"] }]
                 }
               ]

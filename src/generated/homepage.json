@@ -40,7 +40,7 @@
   },
   "githubStars": {
     "air-embodied-brain/Zeva": 20,
-    "air-embodied-brain/Zetta-Embodiment": 668,
+    "air-embodied-brain/Zetta-Embodiment": 671,
     "SEU-PAISys/Embodied.cpp": 154
   },
   "papers": [
@@ -68,6 +68,11 @@
           "kind": "page",
           "label": "主页",
           "href": "https://air-embodied-brain.github.io/Zeva"
+        },
+        {
+          "kind": "press",
+          "label": "量子位",
+          "href": "https://mp.weixin.qq.com/s/OMrRnOtlDyjFXlZDPF-n4Q"
         }
       ]
     },
@@ -95,6 +100,11 @@
           "kind": "page",
           "label": "主页",
           "href": "https://AIR-embodied-brain.github.io/zetta"
+        },
+        {
+          "kind": "press",
+          "label": "机器之心",
+          "href": "https://mp.weixin.qq.com/s/dgrptmhUPzZwcubdwUAqFw"
         }
       ]
     },
@@ -374,6 +384,11 @@
           "kind": "code",
           "label": "代码",
           "href": "https://github.com/MobileLLM/Personal_LLM_Agents_Survey"
+        },
+        {
+          "kind": "press",
+          "label": "机器之心",
+          "href": "https://mp.weixin.qq.com/s/JYB4BzsXhWF8pEUUkvn_GQ"
         }
       ]
     },

@@ -9,6 +9,7 @@
     "citations": "data/gs/total.json"
   },
   "githubRepositories": [
+    "air-embodied-brain/Zeva",
     "air-embodied-brain/Zetta-Embodiment",
     "SEU-PAISys/Embodied.cpp"
   ]

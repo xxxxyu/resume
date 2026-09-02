@@ -1,8 +1,8 @@
 {
   "source": {
     "repository": "https://github.com/xxxxyu/xxxxyu.github.io",
-    "commit": "43a75ecc383c7c82e9e93d1761d0572f65df0237",
-    "commitDate": "2026-08-24T13:00:13+08:00",
+    "commit": "a52de22b2d354ae3683cd393d4b6f0ac0db451db",
+    "commitDate": "2026-09-02T15:18:20+08:00",
     "branch": "main",
     "files": {
       "papers": "data/papers.toml",
@@ -13,7 +13,7 @@
       "citations": "data/gs/total.json"
     }
   },
-  "profile": "我目前就读于清华大学智能产业研究院（AIR），博士四年级，研究端侧智能（博士阶段工作概述）与具身智能。近期主要探索 VLA、WAM 等具身基础模型的高效部署，以及自进化物理智能。",
+  "profile": "我目前就读于清华大学智能产业研究院（AIR），博士五年级，研究端侧智能（博士阶段工作概述）与具身智能。近期主要探索 VLA、WAM 等具身基础模型的高效部署，以及自进化物理智能。",
   "about": "我是清华大学智能产业研究院（AIR）2022 级直博生，师从刘云新教授，同时与曹婷教授密切合作。此前，我于清华大学电子工程系取得工学学士学位。 我在博士期间的研究专注于端侧 AI 推理系统优化，致力于让前沿模型在资源受限的设备端高效运行。代表性工作有 FlexNN（MobiCom 2024），Vec-LUT（MobiSys 2026，Best Paper Award Runner-Up），OxyGen（在投）。 博士期间工作概述：MobiSys 2026 Rising Stars Forum 我的近期工作聚焦于具身智能领域，探索方向包括 VLA、WAM 等具身基础模型的高效推理部署，以及自进化物理智能。 欢迎通过邮件联系：lixiangy22@mails.tsinghua.edu.cn。",
   "awards": [
     "ACM MobiSys 2026 Best Paper Award Runner-Up, 2026/06",
@@ -35,28 +35,56 @@
     "清华大学，音乐理论基础与声乐训练，2023 秋"
   ],
   "citations": {
-    "total": 645,
+    "total": 669,
     "source": "data/gs/total.json"
   },
   "githubStars": {
-    "air-embodied-brain/Zetta-Embodiment": 373,
-    "SEU-PAISys/Embodied.cpp": 147
+    "air-embodied-brain/Zeva": 20,
+    "air-embodied-brain/Zetta-Embodiment": 668,
+    "SEU-PAISys/Embodied.cpp": 154
   },
   "papers": [
     {
-      "id": "zetta",
+      "id": "zeva",
       "order": 1,
-      "title": "Zetta ζ: An Efficient Closed-Loop Embodied Harness for Self-Evolving Physical Intelligence",
-      "authors": "Xin Ding*, Liang Mi*, Mingzhe Huang*, Zixuan Wang*, Chao Zhang*, Zixu Hao*, Fu Chen, Xiangyu Li, Yikai Zheng, Yaoyu Guo, Weijun Wang, Kun Li, Hao Wu, Yunxin Liu, Ting Cao",
+      "title": "Zeva: In-Context Causal Learning for Generalizable Embodied Manipulation",
+      "authors": "Fu Chen*, Xin Ding*, Bingjia Huang, Xiangyu Li, Mingju Wang, Jiawei He, Kun Li, Wei Sun, Yunxin Liu, Hao Wu, Ting Cao",
       "venue": "ArXiv preprint",
       "year": 2026,
       "notes": "",
-      "featured": true,
+      "featured": false,
       "links": [
         {
           "kind": "paper",
           "label": "论文",
-          "href": "https://arxiv.org/pdf/2608.16590"
+          "href": "https://arxiv.org/abs/2608.30880"
+        },
+        {
+          "kind": "code",
+          "label": "代码",
+          "href": "https://github.com/air-embodied-brain/Zeva"
+        },
+        {
+          "kind": "page",
+          "label": "主页",
+          "href": "https://air-embodied-brain.github.io/Zeva"
+        }
+      ]
+    },
+    {
+      "id": "zetta",
+      "order": 2,
+      "title": "Zetta ζ: An Efficient Closed-Loop Embodied Harness for Self-Evolving Physical Intelligence",
+      "authors": "Xin Ding*, Liang Mi*, Mingzhe Huang*, Zixuan Wang*, Chao Zhang*, Zixu Hao*, Fu Chen, Xiangyu Li, Yikai Zheng, Yaoyu Guo, Weijun Wang, Kun Li, Hao Wu, Yunxin Liu, Ting Cao",
+      "venue": "ArXiv preprint",
+      "year": 2026,
+      "notes": "Paper of the Day (Hugging Face)",
+      "featured": false,
+      "links": [
+        {
+          "kind": "paper",
+          "label": "论文",
+          "href": "https://arxiv.org/abs/2608.16590"
         },
         {
           "kind": "code",
@@ -66,13 +94,13 @@
         {
           "kind": "page",
           "label": "主页",
-          "href": "https://AIR-embodied-brain.github.io/zetta/"
+          "href": "https://AIR-embodied-brain.github.io/zetta"
         }
       ]
     },
     {
       "id": "embodied-cpp",
-      "order": 2,
+      "order": 3,
       "title": "Embodied.cpp: A Portable Inference Runtime of Embodied AI Models on Heterogeneous Robots",
       "authors": "Ling Xu, Borui Li†, Hao Wu†, Chuyu Han, Xiangyu Li, Mohan Hua, Shiqi Jiang, Ting Cao, Chuanyou Li, Sheng Zhong, Shuai Wang",
       "venue": "ArXiv preprint",
@@ -94,7 +122,7 @@
     },
     {
       "id": "dwi",
-      "order": 3,
+      "order": 4,
       "title": "DWI: Efficient On-Device LLM Decoding Through Dynamic Width Selection on Nested Models",
       "authors": "Weining Chen, Yongheng Deng, Xiang Wang, Ziyan Fu, Xiangyu Li, Ting Cao",
       "venue": "IEEE Transactions on Mobile Computing (TMC)",
@@ -111,7 +139,7 @@
     },
     {
       "id": "rising-stars",
-      "order": 4,
+      "order": 5,
       "title": "Building Efficient Inference Systems for Resource-Constrained Edge AI Deployment",
       "authors": "Xiangyu Li",
       "venue": "ACM MobiSys Companion 2026",
@@ -128,7 +156,7 @@
     },
     {
       "id": "actprobe",
-      "order": 5,
+      "order": 6,
       "title": "ActProbe: Action-Space Probe for Early Failure Detection of Generative Robot Policies",
       "authors": "Bingjia Huang*, Xiangyu Li*, Xiang Wang, Liang Mi, Zixu Hao, Weijun Wang, Hao Wu, Kun Li, Yunxin Liu, Ting Cao",
       "venue": "ArXiv preprint",
@@ -155,7 +183,7 @@
     },
     {
       "id": "embodiskill",
-      "order": 6,
+      "order": 7,
       "title": "EmbodiSkill: Skill-Aware Reflection for Self-Evolving Embodied Agents",
       "authors": "Ruofei Ju*, Xinrui Wang*, Xin Ding, Yifan Yang, Hao Wu, Shiqi Jiang, Qianxi Zhang, Hao Wen, Xiangyu Li, Weijun Wang, Kun Li, Yunxin Liu, Haipeng Dai, Wei Wang, Ting Cao",
       "venue": "ArXiv preprint",
@@ -177,7 +205,7 @@
     },
     {
       "id": "oxygen",
-      "order": 7,
+      "order": 8,
       "title": "OxyGen: Unified KV Cache Management for VLA Inference under Multi-Task Parallelism",
       "authors": "Xiangyu Li, Huaizhi Tang, Xin Ding, Weijun Wang, Ting Cao, Yunxin Liu",
       "venue": "ArXiv preprint",
@@ -204,7 +232,7 @@
     },
     {
       "id": "vec-lut",
-      "order": 8,
+      "order": 9,
       "title": "Vec-LUT: Vector Table Lookup for Parallel Ultra-Low-Bit LLM Inference on Edge Devices",
       "authors": "Xiangyu Li*, Chengyu Yin*, Weijun Wang, Jianyu Wei, Ting Cao, Yunxin Liu",
       "venue": "ACM MobiSys 2026",
@@ -236,7 +264,7 @@
     },
     {
       "id": "length-constrained-reasoning",
-      "order": 9,
+      "order": 10,
       "title": "An Empirical Study of LLM Reasoning Ability Under Strict Output Length Constraint",
       "authors": "Yi Sun, Han Wang, Jiaqiang Li, Jiacheng Liu, Xiangyu Li, Hao Wen, Yizhen Yuan, Huiwen Zheng, Yan Liang, Yuanchun Li, Yunxin Liu",
       "venue": "EMNLP 2025",
@@ -258,7 +286,7 @@
     },
     {
       "id": "squeezer",
-      "order": 10,
+      "order": 11,
       "title": "Squeezer: Efficient Multi-DNN Inference for Edge Video Analytics via Cross-Model Scheduling",
       "authors": "Xiang Wang, Lingxiao Ma, Ziyan Fu, Xiangyu Li, Yuanchun Li, Ju Ren, Yaoxue Zhang, Yunxin Liu",
       "venue": "IEEE Transactions on Mobile Computing (TMC)",
@@ -275,7 +303,7 @@
     },
     {
       "id": "chainstream",
-      "order": 11,
+      "order": 12,
       "title": "ChainStream: An LLM-based Framework for Unified Synthetic Sensing",
       "authors": "Jiacheng Liu, Yuanchun Li, Liangyan Li, Yi Sun, Hao Wen, Xiangyu Li, Yao Guo, Yunxin Liu",
       "venue": "ArXiv preprint",
@@ -302,7 +330,7 @@
     },
     {
       "id": "flexnn",
-      "order": 12,
+      "order": 13,
       "title": "FlexNN: Efficient and Adaptive DNN Inference on Memory-Constrained Edge Devices",
       "authors": "Xiangyu Li, Yuanchun Li, Yuanzhe Li, Ting Cao, Yunxin Liu",
       "venue": "ACM MobiCom 2024",
@@ -329,7 +357,7 @@
     },
     {
       "id": "personal-llm-agents",
-      "order": 13,
+      "order": 14,
       "title": "Personal LLM Agents: Insights and Survey about the Capability, Efficiency and Security",
       "authors": "Yuanchun Li†, Hao Wen‡, Weijun Wang‡, Xiangyu Li‡, Yizhen Yuan‡, Guohong Liu‡, Jiacheng Liu, Wenxing Xu, Xiang Wang, Yi Sun, Rui Kong, Yile Wang, Hanfei Geng, Jian Luan, Xuefeng Jin, Zilong Ye, Guanjing Xiong, Fan Zhang, Xiang Li, Mengwei Xu, Zhijun Li, Peng Li, Yang Liu, Ya-Qin Zhang, Yunxin Liu",
       "venue": "ArXiv preprint",
@@ -351,7 +379,7 @@
     },
     {
       "id": "dimmining",
-      "order": 14,
+      "order": 15,
       "title": "DIMMining: Pruning-Efficient and Parallel Graph Mining on Near-Memory-Computing",
       "authors": "Guohao Dai, Zhenhua Zhu, Tianyu Fu, Chiyue Wei, Bangyan Wang, Xiangyu Li, Yuan Xie, Huazhong Yang, Yu Wang",
       "venue": "ISCA 2022",

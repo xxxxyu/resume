@@ -135,12 +135,12 @@
               "bullets": [
                 {
                   "label": "Zeva · Model",
-                  "text": "通过双时间尺度因果记忆实现上下文因果学习，使冻结策略不更新权重也能持续适应。",
+                  "text": "从交互中学习并记忆动作与结果的因果关系，无需更新权重即可持续适应。",
                   "paperRefs": [{ "id": "zeva", "include": ["page"] }]
                 },
                 {
                   "label": "Zetta ζ · Harness & Infra",
-                  "text": "动作频率闭环监测与恢复，将 rollout 经验演进为可复用技能。",
+                  "text": "在执行中持续监测异常并触发恢复，将交互经验沉淀为可复用技能。",
                   "paperRefs": [{ "id": "zetta", "include": ["code"] }]
                 },
                 {

@@ -14,6 +14,26 @@ function localizedLink(link, locale) {
   return { ...link, label: linkLabels[locale]?.[link.kind] || link.label };
 }
 
+function githubRepositoryFromLink(link) {
+  if (link.kind !== "code") return null;
+  try {
+    const url = new URL(link.href);
+    if (url.hostname.toLowerCase() !== "github.com") return null;
+    const [owner, repository] = url.pathname.split("/").filter(Boolean);
+    return owner && repository ? `${owner}/${repository}` : null;
+  } catch {
+    return null;
+  }
+}
+
+function withGithubStars(link, locale) {
+  const repository = link.githubRepository || githubRepositoryFromLink(link);
+  const stars = repository ? homepage.githubStars?.[repository] : null;
+  if (!Number.isInteger(stars)) return link;
+  const suffix = locale === "zh" ? `（${stars}★）` : ` (${stars}★)`;
+  return { ...link, label: `${link.label}${suffix}` };
+}
+
 function resolvePapers(resume, locale) {
   return homepage.papers.map((paper) => {
     const override = resume.paperOverrides?.[paper.id] || {};
@@ -35,29 +55,29 @@ function resolvePaperRefs(paperRefs = [], locale) {
       .filter((link) => include.has(link.kind))
       .map((link) => {
         const localized = localizedLink(link, locale);
-        return {
+        return withGithubStars({
           ...localized,
           label: reference.prefix ? `${reference.prefix} ${localized.label}` : localized.label
-        };
+        }, locale);
       });
   });
 }
 
 function resolveInlineRefs(refs = [], locale) {
   return refs.map((reference) => {
-    const { githubRepository, ...resolved } = reference;
-    const stars = githubRepository ? homepage.githubStars?.[githubRepository] : null;
-    const suffix = locale === "zh" ? `（${stars}★）` : ` (${stars}★)`;
-    return {
-      ...resolved,
-      label: Number.isInteger(stars) ? `${resolved.label}${suffix}` : resolved.label
-    };
+    const resolved = withGithubStars(reference, locale);
+    const { githubRepository, ...link } = resolved;
+    return link;
   });
 }
 
 function resolveBullet(bullet, locale) {
   if (typeof bullet === "string") return bullet;
-  return { ...bullet, refs: resolveInlineRefs(bullet.refs, locale) };
+  const refs = bullet.refs
+    ? resolveInlineRefs(bullet.refs, locale)
+    : resolvePaperRefs(bullet.paperRefs, locale);
+  const { paperRefs, ...resolved } = bullet;
+  return { ...resolved, refs };
 }
 
 function resolveEntry(entry, locale) {

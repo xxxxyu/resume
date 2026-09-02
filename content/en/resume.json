@@ -125,22 +125,23 @@
               "paperRefs": [{ "id": "actprobe", "include": ["paper", "code", "page"] }]
             },
             {
-              "title": "Open-Source Embodied AI Harnesses & Infrastructure",
+              "title": "Embodied Models & Systems",
               "meta": "Contributor",
               "bullets": [
                 {
-                  "label": "Zetta ζ",
-                  "text": "A closed-loop harness for self-evolving physical intelligence.",
-                  "refs": [
-                    { "label": "Code", "href": "https://github.com/air-embodied-brain/Zetta-Embodiment", "githubRepository": "air-embodied-brain/Zetta-Embodiment" }
-                  ]
+                  "label": "Zeva · Model",
+                  "text": "Frozen-policy adaptation via in-context learning over dual-timescale causal memory.",
+                  "paperRefs": [{ "id": "zeva", "include": ["code"] }]
                 },
                 {
-                  "label": "Embodied.cpp",
-                  "text": "A portable runtime for embodied model inference on heterogeneous robot platforms.",
-                  "refs": [
-                    { "label": "Code", "href": "https://github.com/SEU-PAISys/Embodied.cpp", "githubRepository": "SEU-PAISys/Embodied.cpp" }
-                  ]
+                  "label": "Zetta ζ · Harness & Infra",
+                  "text": "Closed-loop self-evolution with online runtime critics and recovery skills.",
+                  "paperRefs": [{ "id": "zetta", "include": ["code"] }]
+                },
+                {
+                  "label": "Embodied.cpp · Runtime",
+                  "text": "Portable VLA/WAM inference across CPU, CUDA GPU, and NPU.",
+                  "paperRefs": [{ "id": "embodied-cpp", "include": ["code"] }]
                 }
               ]
             }

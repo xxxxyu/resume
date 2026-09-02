@@ -130,22 +130,23 @@
               "paperRefs": [{ "id": "actprobe", "include": ["paper", "code", "page"] }]
             },
             {
-              "title": "具身智能开源框架：Harness & Infra",
+              "title": "具身智能模型与系统",
               "meta": "参与",
               "bullets": [
                 {
-                  "label": "Zetta ζ",
-                  "text": "面向自进化物理智能的高效闭环具身 Harness，支持自主探索与持续提升。",
-                  "refs": [
-                    { "label": "代码", "href": "https://github.com/air-embodied-brain/Zetta-Embodiment", "githubRepository": "air-embodied-brain/Zetta-Embodiment" }
-                  ]
+                  "label": "Zeva · Model",
+                  "text": "以双时间尺度因果记忆实现部署时上下文学习，使冻结策略从交互中持续适应。",
+                  "paperRefs": [{ "id": "zeva", "include": ["code"] }]
                 },
                 {
-                  "label": "Embodied.cpp",
-                  "text": "面向异构机器人平台的可移植具身模型推理运行时。",
-                  "refs": [
-                    { "label": "代码", "href": "https://github.com/SEU-PAISys/Embodied.cpp", "githubRepository": "SEU-PAISys/Embodied.cpp" }
-                  ]
+                  "label": "Zetta ζ · Harness & Infra",
+                  "text": "闭环自进化系统，在线演化运行时评判器与恢复技能。",
+                  "paperRefs": [{ "id": "zetta", "include": ["code"] }]
+                },
+                {
+                  "label": "Embodied.cpp · Runtime",
+                  "text": "面向 CPU / CUDA GPU / NPU 的可移植 VLA / WAM 推理运行时。",
+                  "paperRefs": [{ "id": "embodied-cpp", "include": ["code"] }]
                 }
               ]
             }

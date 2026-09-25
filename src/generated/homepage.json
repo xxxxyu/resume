@@ -1,8 +1,8 @@
 {
   "source": {
     "repository": "https://github.com/xxxxyu/xxxxyu.github.io",
-    "commit": "a52de22b2d354ae3683cd393d4b6f0ac0db451db",
-    "commitDate": "2026-09-02T15:18:20+08:00",
+    "commit": "f592d89aa28add1f95809ca0027b9375f91e8c2b",
+    "commitDate": "2026-09-25T14:48:21+08:00",
     "branch": "main",
     "files": {
       "papers": "data/papers.toml",
@@ -14,7 +14,7 @@
     }
   },
   "profile": "我目前就读于清华大学智能产业研究院（AIR），博士五年级，研究端侧智能（博士阶段工作概述）与具身智能。近期主要探索 VLA、WAM 等具身基础模型的高效部署，以及自进化物理智能。",
-  "about": "我是清华大学智能产业研究院（AIR）2022 级直博生，师从刘云新教授，同时与曹婷教授密切合作。此前，我于清华大学电子工程系取得工学学士学位。 我在博士期间的研究专注于端侧 AI 推理系统优化，致力于让前沿模型在资源受限的设备端高效运行。代表性工作有 FlexNN（MobiCom 2024），Vec-LUT（MobiSys 2026，Best Paper Award Runner-Up），OxyGen（在投）。 博士期间工作概述：MobiSys 2026 Rising Stars Forum 我的近期工作聚焦于具身智能领域，探索方向包括 VLA、WAM 等具身基础模型的高效推理部署，以及自进化物理智能。 欢迎通过邮件联系：lixiangy22@mails.tsinghua.edu.cn。",
+  "about": "我是清华大学智能产业研究院（AIR）2022 级直博生，师从刘云新教授，同时与曹婷教授密切合作。此前，我于清华大学电子工程系取得工学学士学位。 我在博士期间的研究专注于端侧 AI 推理系统优化，致力于让前沿模型在资源受限的设备端高效运行。代表性工作有 FlexNN（MobiCom 2024），Vec-LUT（MobiSys 2026，Best Paper Award Runner-Up），OxyGen（NeurIPS 2026）。 博士期间工作概述：MobiSys 2026 Rising Stars Forum 我的近期工作聚焦于具身智能领域，探索方向包括 VLA、WAM 等具身基础模型的高效推理部署，以及自进化物理智能。 欢迎通过邮件联系：lixiangy22@mails.tsinghua.edu.cn。",
   "awards": [
     "ACM MobiSys 2026 Best Paper Award Runner-Up, 2026/06",
     "ACM MobiSys 2026 Student Travel Grant, 2026/05",
@@ -39,9 +39,9 @@
     "source": "data/gs/total.json"
   },
   "githubStars": {
-    "air-embodied-brain/Zeva": 20,
-    "air-embodied-brain/Zetta-Embodiment": 671,
-    "SEU-PAISys/Embodied.cpp": 154
+    "air-embodied-brain/Zeva": 58,
+    "air-embodied-brain/Zetta-Embodiment": 1255,
+    "SEU-PAISys/Embodied.cpp": 179
   },
   "papers": [
     {
@@ -218,9 +218,9 @@
       "order": 8,
       "title": "OxyGen: Unified KV Cache Management for VLA Inference under Multi-Task Parallelism",
       "authors": "Xiangyu Li, Huaizhi Tang, Xin Ding, Weijun Wang, Ting Cao, Yunxin Liu",
-      "venue": "ArXiv preprint",
+      "venue": "NeurIPS 2026",
       "year": 2026,
-      "notes": "",
+      "notes": "Main Track, Poster",
       "featured": true,
       "links": [
         {
@@ -237,6 +237,11 @@
           "kind": "page",
           "label": "主页",
           "href": "https://air-embodied-brain.github.io/OxyGen"
+        },
+        {
+          "kind": "blog",
+          "label": "解读",
+          "href": "https://xxxxyu.github.io/blog/oxygen-mot-vla-inference/"
         }
       ]
     },
@@ -279,7 +284,7 @@
       "authors": "Yi Sun, Han Wang, Jiaqiang Li, Jiacheng Liu, Xiangyu Li, Hao Wen, Yizhen Yuan, Huiwen Zheng, Yan Liang, Yuanchun Li, Yunxin Liu",
       "venue": "EMNLP 2025",
       "year": 2025,
-      "notes": "",
+      "notes": "Main Conference",
       "featured": false,
       "links": [
         {

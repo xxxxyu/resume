@@ -5,7 +5,7 @@
     "latinName": "XIANGYU LI",
     "affiliation": "清华大学智能产业研究院（AIR）博士研究生",
     "fields": "端侧智能高效部署 · 自进化物理智能",
-    "updated": "更新于 2026.08",
+    "updated": "更新于 2026.09",
     "contact": [
       { "label": "(+86) 159 1091 2361" },
       { "label": "lixiangy22@mails.tsinghua.edu.cn", "href": "mailto:lixiangy22@mails.tsinghua.edu.cn" },
@@ -106,7 +106,7 @@
             {
               "title": "OxyGen：多任务并行 VLA 推理加速",
               "role": "第一作者",
-              "venue": "under review",
+              "venue": "NeurIPS 2026",
               "bullets": [
                 "面向多任务（动作、语言）并行场景，提出跨任务、跨帧的统一 KV Cache 管理。",
                 {

@@ -5,7 +5,7 @@
     "latinName": "李翔宇",
     "affiliation": "Ph.D. Candidate, Tsinghua University (AIR)",
     "fields": "Efficient On-Device AI · Self-Evolving Physical AI",
-    "updated": "Updated Aug 2026",
+    "updated": "Updated Sep 2026",
     "contact": [
       { "label": "+86 159 1091 2361" },
       { "label": "lixiangy22@mails.tsinghua.edu.cn", "href": "mailto:lixiangy22@mails.tsinghua.edu.cn" },
@@ -101,7 +101,7 @@
             {
               "title": "OxyGen: Parallel Multi-Task VLA Inference",
               "role": "First author",
-              "venue": "under review",
+              "venue": "NeurIPS 2026",
               "bullets": [
                 "Unified KV-cache management across tasks and control frames for concurrent action/language generation.",
                 {

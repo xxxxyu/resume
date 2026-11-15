@@ -141,8 +141,13 @@ npm run render:review
 
 The files in `output/review/` embed the bundled fonts. The renderer verifies
 matching layout in direct and sandboxed previews with external requests blocked,
-checks A4 bounds in screen and print modes, and checks compact text with both
-bundled and fallback fonts. PDF export shares the same layout checks.
+and checks A4 bounds and compact text in screen and print modes using the bundled
+fonts. PDF export shares the same layout checks.
+
+To diagnose a viewer that substitutes local fonts, run
+`npm run render:review -- --system-font-fallback`. This additionally checks compact
+text with the current operating system's fonts. It is opt-in because system font
+metrics vary across platforms; exported documents always embed their fonts.
 
 During content drafting, use `npm run render:review -- --content-draft` to show
 overflow without clipping it and mark the A4 page bottom. This deliberately

@@ -13,6 +13,7 @@ import { assertPageBounds, assertResumeLayout } from "./lib/browser-layout.mjs";
 const root = fileURLToPath(new URL("../", import.meta.url));
 const output = path.join(root, "output/review");
 const contentDraft = process.argv.includes("--content-draft");
+const checkSystemFontFallback = process.argv.includes("--system-font-fallback");
 await mkdir(output, { recursive: true });
 
 // Embedded previews do not necessarily have a file base URL or permission to read sibling files.
@@ -81,12 +82,15 @@ try {
     const inline = await inspect(embedded, `${locale}/embedded`);
     assert.deepEqual(inline, direct, `${locale}: embedded and direct text layouts differ`);
     await embedded.locator('[data-section="research"]').screenshot({ path: path.join(output, `research.${locale}.embedded.png`) });
-    const fallbackStyle = await embedded.addStyleTag({
-      content: ".entry p, .entry li, .entry li * { font-family: system-ui, sans-serif !important; }"
-    });
-    // A4 pagination uses the embedded fonts; fallback fonts only guard key single-line claims.
-    await inspect(embedded, `${locale}/system-font-fallback`, { checkPageBounds: false });
-    await fallbackStyle.evaluate((element) => element.remove());
+    // System fonts differ across operating systems. This opt-in diagnostic is useful
+    // for debugging a local viewer, but is not a requirement for the embedded export.
+    if (checkSystemFontFallback) {
+      const fallbackStyle = await embedded.addStyleTag({
+        content: ".entry p, .entry li, .entry li * { font-family: system-ui, sans-serif !important; }"
+      });
+      await inspect(embedded, `${locale}/system-font-fallback`, { checkPageBounds: false });
+      await fallbackStyle.evaluate((element) => element.remove());
+    }
     await page.emulateMedia({ media: 'print' });
     await inspect(embedded, `${locale}/print`);
     assert.deepEqual(errors, [], `${locale}: browser errors`);

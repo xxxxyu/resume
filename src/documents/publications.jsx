@@ -26,7 +26,7 @@ function PaperItem({ paper, number }) {
     ? paper.venue
     : `${paper.venue} · ${paper.year}`;
   return (
-    <article className={`paper-item ${paper.featured ? "paper-featured" : ""}`} data-paper-id={paper.id}>
+    <article className="paper-item" data-paper-id={paper.id}>
       <div className="paper-index">{String(number).padStart(2, "0")}</div>
       <div className="paper-content">
         <h2>{paper.title}</h2>
@@ -58,7 +58,7 @@ function PaperGroup({ group }) {
 function PapersPage({ data, groups, pageNumber, pageCount, hasNextPage, groupGap }) {
   const { profile } = data;
   const ui = data.ui.papers;
-  const scholarHref = profile.contact.find((item) => item.label === "Google Scholar")?.href;
+  const scholarHref = profile.contact.find((item) => item.kind === "scholar")?.href;
   return (
     <main
       className="page papers-page"

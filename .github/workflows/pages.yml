@@ -24,12 +24,6 @@ jobs:
       - name: Checkout resume
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
-      - name: Checkout personal homepage data
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
-        with:
-          repository: xxxxyu/xxxxyu.github.io
-          path: homepage
-
       - name: Set up Node.js
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
         with:
@@ -42,23 +36,13 @@ jobs:
       - name: Install Chromium renderer
         run: npx playwright install --with-deps chromium
 
-      - name: Sync data and build
-        run: npm run build:sync
+      - name: Build reviewed content
+        run: npm run build
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          HOMEPAGE_REPO: homepage
           RESUME_BASE_PATH: /resume/
 
-      - name: Verify bundled fonts
-        run: |
-          for font in \
-            NotoSansSC-SiteSubset.woff2 \
-            NotoSerifSC-SiteSubset.woff2 \
-            SourceSans3VF-Upright.ttf.woff2 \
-            SourceSerif4Variable-Roman.ttf.woff2
-          do
-            test -s "dist/fonts/$font"
-          done
+      - name: Validate standalone and embedded previews
+        run: npm run render:review
 
       - name: Render PDF documents
         run: node scripts/render.mjs

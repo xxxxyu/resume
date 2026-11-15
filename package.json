@@ -12,6 +12,7 @@
     "preview": "vite preview --host 127.0.0.1",
     "render": "npm run build:sync && node scripts/render.mjs",
     "render:cached": "npm run build && node scripts/render.mjs",
+    "render:review": "node scripts/render-review.mjs",
     "render:readme-preview": "node scripts/render-readme-preview.mjs"
   },
   "dependencies": {
@@ -20,7 +21,7 @@
   },
   "devDependencies": {
     "playwright": "1.62.1",
-    "smol-toml": "1.8.0",
-    "vite": "8.2.2"
+    "smol-toml": "1.9.1",
+    "vite": "8.3.8"
   }
 }

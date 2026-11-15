@@ -1,6 +1,7 @@
 import resumeZh from "../../content/zh/resume.json";
 import resumeEn from "../../content/en/resume.json";
 import homepage from "../generated/homepage.json";
+import metrics from "../../content/metrics.json";
 
 const contentByLocale = { zh: resumeZh, en: resumeEn };
 const linkLabels = {
@@ -12,26 +13,6 @@ const paperById = new Map(homepage.papers.map((paper) => [paper.id, paper]));
 
 function localizedLink(link, locale) {
   return { ...link, label: linkLabels[locale]?.[link.kind] || link.label };
-}
-
-function githubRepositoryFromLink(link) {
-  if (link.kind !== "code") return null;
-  try {
-    const url = new URL(link.href);
-    if (url.hostname.toLowerCase() !== "github.com") return null;
-    const [owner, repository] = url.pathname.split("/").filter(Boolean);
-    return owner && repository ? `${owner}/${repository}` : null;
-  } catch {
-    return null;
-  }
-}
-
-function withGithubStars(link, locale) {
-  const repository = link.githubRepository || githubRepositoryFromLink(link);
-  const stars = repository ? homepage.githubStars?.[repository] : null;
-  if (!Number.isInteger(stars)) return link;
-  const suffix = locale === "zh" ? `（${stars}★）` : ` (${stars}★)`;
-  return { ...link, label: `${link.label}${suffix}` };
 }
 
 function resolvePapers(resume, locale) {
@@ -55,36 +36,27 @@ function resolvePaperRefs(paperRefs = [], locale) {
       .filter((link) => include.has(link.kind))
       .map((link) => {
         const localized = localizedLink(link, locale);
-        return withGithubStars({
+        return {
           ...localized,
           label: reference.prefix ? `${reference.prefix} ${localized.label}` : localized.label
-        }, locale);
+        };
       });
-  });
-}
-
-function resolveInlineRefs(refs = [], locale) {
-  return refs.map((reference) => {
-    const resolved = withGithubStars(reference, locale);
-    const { githubRepository, ...link } = resolved;
-    return link;
   });
 }
 
 function resolveBullet(bullet, locale) {
   if (typeof bullet === "string") return bullet;
-  const refs = bullet.refs
-    ? resolveInlineRefs(bullet.refs, locale)
-    : resolvePaperRefs(bullet.paperRefs, locale);
+  const refs = bullet.refs || resolvePaperRefs(bullet.paperRefs, locale);
   const { paperRefs, ...resolved } = bullet;
   return { ...resolved, refs };
 }
 
 function resolveEntry(entry, locale) {
+  const { paperRefs, ...resolved } = entry;
   return {
-    ...entry,
+    ...resolved,
     bullets: entry.bullets?.map((bullet) => resolveBullet(bullet, locale)),
-    refs: entry.refs ? resolveInlineRefs(entry.refs, locale) : resolvePaperRefs(entry.paperRefs, locale)
+    refs: entry.refs || resolvePaperRefs(paperRefs, locale)
   };
 }
 
@@ -92,6 +64,13 @@ export function getDocumentData(locale = "zh") {
   const resolvedLocale = contentByLocale[locale] ? locale : "zh";
   const resume = contentByLocale[resolvedLocale];
   const papers = resolvePapers(resume, resolvedLocale);
+  // An authored measurement can be newer than the homepage checkout used by sync.
+  const citations = metrics.citations
+    ? { ...metrics.citations, source: "content/metrics.json" }
+    : homepage.citations;
+  if (citations && (!Number.isSafeInteger(citations.total) || citations.total < 0)) {
+    throw new Error(`Invalid citation total in ${citations.source}`);
+  }
   const resumeData = {
     ...resume,
     sections: resume.sections.map((section) => ({
@@ -106,7 +85,14 @@ export function getDocumentData(locale = "zh") {
   };
 
   const paperListData = {
-    profile: resume.profile,
+    profile: {
+      ...resume.profile,
+      // Publications follow the synchronized source; resume prose is edited separately.
+      updated: `${resolvedLocale === "zh" ? "更新于" : "Updated"} ${new Intl.DateTimeFormat(
+        resolvedLocale === "zh" ? "zh-CN" : "en-US",
+        { year: "numeric", month: "short", timeZone: "Asia/Shanghai" }
+      ).format(new Date(homepage.source.commitDate))}`
+    },
     ui: resume.ui,
     groups: resume.paperGroups.map((group) => ({
       ...group,
@@ -115,7 +101,7 @@ export function getDocumentData(locale = "zh") {
         .sort((left, right) => right.year - left.year || left.order - right.order)
     })),
     source: homepage.source,
-    citations: homepage.citations,
+    citations,
     total: papers.length,
     yearRange: [
       Math.min(...papers.map((paper) => paper.year)),

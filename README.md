@@ -26,8 +26,8 @@ same layout to PDF with Playwright.
 - Stable Chromium-based PDF and PNG export.
 - Local, version-controlled Latin and CJK web fonts—no font CDN or system font
   installation is required.
-- Optional synchronization of publications, citations, links, and GitHub star
-  counts from my personal-homepage repository.
+- Optional synchronization of publications, citations, and links from my
+  personal-homepage repository, with explicit overrides for newer measurements.
 - GitHub Pages deployment and fresh PDF artifacts from every push to `main`.
 
 ## Preview locally
@@ -65,17 +65,61 @@ the print layout. Color is the default palette; select **B&W** in the toolbar or
 add `palette=mono` to use the same layout with high-contrast grayscale colors.
 Printing and PDF export preserve the selected palette.
 
+The resume header groups the name and affiliation on the left and contacts in
+a right-hand column; the update date sits in the footer. Body text stays at 9pt
+with 1.5 line height, 3 mm section gaps, 1.5 mm ordinary entry gaps, and 1.2 mm
+research entry gaps.
+The resume uses a 9 mm top margin. In the complete edition, the continuation
+hint shares the footer row with the update date and page number.
+
 ## Use the design for your own resume
 
 Fork or clone the repository and replace the authored content in:
 
 - `content/zh/resume.json` — Chinese profile, resume sections, and UI labels.
 - `content/en/resume.json` — English content and labels.
-- `src/generated/homepage.json` — publication metadata and cached dynamic data.
+- `content/metrics.json` — shared, manually confirmed statistics that are newer
+  than the synchronized source.
+- `src/generated/homepage.json` — synchronized publication and citation snapshot.
 
 Most text changes require no React edits. `profile` controls the name and
 contacts, `sections` contains resume entries, `paperGroups` controls publication
 grouping, and `paperOverrides` can replace synchronized paper fields by ID.
+Keep section `id` values and contact `kind` values stable: layout checks and
+the Scholar link use these identifiers, independently of translated labels.
+
+When present, `metrics.citations` overrides the synchronized citation total for
+both publication lists. Update its `total` and `asOf` together; remove the object
+to resume using the homepage count. Synchronization never rewrites this file.
+GitHub star labels are maintained in both language files; prefer stable lower
+bounds such as `90k+★`. They are not fetched or appended to links at build time.
+
+For compact named-work summaries, use `title` for the work name, `meta` for the
+author/venue annotation (including punctuation), and `text` for the description.
+`highlights` selects key evidence within `text` for black bold emphasis;
+`accents` selects a few highest-priority spans for red bold emphasis.
+`distinctions` selects awards within `meta` for separate bold emphasis.
+An entry's `role` accepts either plain text (for supporting roles) or the same
+`{ "text": "…", "highlights": ["…"] }` structure (for lead/first-author roles,
+project ownership, or merged upstream contributions). Keep only representative
+results and hands-on experience bold; supporting metrics and community reach
+stay in regular body text. Content accents are currently limited to lead/first-author
+roles in the three main research projects, separating ownership from collaboration
+at a glance. Other roles and result highlights remain black. Avoid assigning the
+same emphasis to every metric, role, or community statistic.
+A research group's
+`emphasis: "supporting"` gives its heading and result highlights a quieter visual
+hierarchy; the content fields describe meaning rather than colors.
+Entries can use `recognition` for brief community recognition in the space at
+the right of the heading, in smaller body-color text. Keep the heading and
+recognition short enough to share one line.
+Use `engagement` for the type of industry experience (such as a research
+collaboration or internship); it appears beside the title in the body text color.
+
+Margin links share the full left column: short links sit side by side, with
+longer groups wrapping into additional rows. Each group stays right-aligned,
+anchors near its entry heading, and clears section labels and preceding links.
+Only a group that extends past the body content increases the section height.
 
 My synchronization adapter is intentionally kept in the public repository as a
 working example. To connect another data source, edit `resume.config.json` and
@@ -88,6 +132,21 @@ the result as your own. Feel free to fork or clone the repository and adapt it
 to your needs. Your star means a lot to me—thank you!
 
 ## Build and export
+
+Generate self-contained A4 review HTML and screenshots:
+
+```bash
+npm run render:review
+```
+
+The files in `output/review/` embed the bundled fonts. The renderer verifies
+matching layout in direct and sandboxed previews with external requests blocked,
+checks A4 bounds in screen and print modes, and checks compact text with both
+bundled and fallback fonts. PDF export shares the same layout checks.
+
+During content drafting, use `npm run render:review -- --content-draft` to show
+overflow without clipping it and mark the A4 page bottom. This deliberately
+relaxes the page-height check; it does not replace final A4 validation.
 
 A deterministic build uses the committed data snapshot:
 
@@ -136,13 +195,17 @@ checked-in preview image.
 
 ```text
 content/{zh,en}/resume.json   Authored bilingual resume content
+content/metrics.json          Shared overrides for newer measurements
 src/generated/homepage.json  Committed snapshot of synchronized data
 src/data/index.js             Locale and paper-reference resolution
 src/documents/                Resume and publication page composition
 src/components/               Shared entry and typography components
 src/styles/main.css           A4 screen and print layout
+src/layout/resume-links.js    Shared responsive margin-link placement
 scripts/sync-homepage.mjs     Personal-homepage data adapter
+scripts/render-review.mjs     Self-contained HTML review and embedded checks
 scripts/render.mjs            Pagination checks and PDF/PNG export
+scripts/lib/                  Shared font-loading and layout validation
 scripts/render-readme-preview.mjs  Opt-in bilingual README montage
 public/fonts/                 Bundled, self-contained web fonts
 ```
@@ -152,17 +215,19 @@ synchronization happens in one adapter, and layout changes stay in React/CSS.
 
 ## Deploy to GitHub Pages
 
-The workflow in `.github/workflows/pages.yml` checks out both this repository
-and my public homepage data, installs locked npm dependencies, rebuilds the
-site with the `/resume/` project base path, verifies all four bundled fonts,
-renders and uploads the PDF artifact, and deploys `dist`.
+The workflow in `.github/workflows/pages.yml` installs locked npm dependencies,
+builds the committed content and snapshot with the `/resume/` project base path,
+verifies standalone and embedded previews, renders and uploads the PDF artifact,
+and deploys `dist`. Deployment does not resync external data: run
+`npm run sync:homepage` locally, review the changes, and commit the snapshot when
+you want to update publications. The deployed content therefore matches the
+reviewed commit.
 
 For a fork:
 
-1. Update or remove the personal-homepage checkout and synchronization step.
-2. Change `RESUME_BASE_PATH` to `/<your-repository-name>/`.
-3. Open **Settings → Pages** and select **GitHub Actions** as the source.
-4. Push to `main`.
+1. Change `RESUME_BASE_PATH` to `/<your-repository-name>/`.
+2. Open **Settings → Pages** and select **GitHub Actions** as the source.
+3. Push to `main`.
 
 ## Fonts and reproducibility
 

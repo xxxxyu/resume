@@ -1,16 +1,26 @@
 import React from "react";
 
+function HighlightedText({ text, highlights = [], accents = [], className = "text-highlight" }) {
+  const phrases = [...new Set([...highlights, ...accents])].filter(Boolean).sort((a, b) => b.length - a.length);
+  if (!phrases.length) return text ?? null;
+  const expression = new RegExp(`(${phrases.map((part) => part.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|")})`, "g");
+  const highlighted = new Set(phrases);
+  const accented = new Set(accents);
+  return text.split(expression).map((part, index) => highlighted.has(part)
+    ? <strong className={accented.has(part) ? "text-accent" : className} key={`${part}-${index}`}>{part}</strong>
+    : part
+  );
+}
+
 export function RichText({ value }) {
   if (typeof value === "string") return value;
-  if (value?.label) {
-    return <><b>{value.label}</b><span className="label-divider"> / </span>{value.text}</>;
-  }
-  if (!value?.highlights?.length) return value?.text ?? null;
-  const expression = new RegExp(`(${value.highlights.map((part) => part.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|")})`, "g");
-  const highlighted = new Set(value.highlights);
-  return value.text.split(expression).map((part, index) => highlighted.has(part)
-    ? <strong key={`${part}-${index}`}>{part}</strong>
-    : part
+  if (!value) return null;
+  return (
+    <>
+      {value.title && <span className="text-title">{value.title}</span>}
+      {value.meta && <span className="text-meta"><HighlightedText text={value.meta} highlights={value.distinctions} className="text-distinction" /></span>}
+      <HighlightedText text={value.text} highlights={value.highlights} accents={value.accents} />
+    </>
   );
 }
 
@@ -28,25 +38,41 @@ export function InlineRefs({ refs }) {
   );
 }
 
-export function Entry({ entry }) {
-  const hasHead = entry.title || entry.meta || entry.date;
+function MarginRefs({ refs, title }) {
+  if (!refs?.length) return null;
+  const projectPages = refs.filter((reference) => reference.kind === "page");
+  const links = projectPages.length ? projectPages : refs;
   return (
-    <article className={`entry ${hasHead ? "" : "entry-plain"} ${entry.kind ? `entry-${entry.kind}` : ""}`}>
+    <div className="entry-margin-refs">
+      {links.map((reference) => (
+        <a key={`${reference.href}-${reference.label}`} href={reference.href} aria-label={`${title} — ${reference.label}`}>
+          <span>{reference.label}</span><span className="margin-link-arrow" aria-hidden="true">↗</span>
+        </a>
+      ))}
+    </div>
+  );
+}
+
+export function Entry({ entry, marginRefs = false }) {
+  const hasHead = entry.title || entry.meta || entry.date;
+  const showMarginRefs = marginRefs && entry.refs?.length > 0;
+  return (
+    <article className={hasHead ? "entry" : "entry entry-plain"}>
+      {showMarginRefs && <MarginRefs refs={entry.refs} title={entry.title || entry.meta || "Links"} />}
       {hasHead && (
         <div className={`entry-head ${entry.date ? "" : "entry-head-full"}`}>
           <div className="entry-identity">
             <h3>{entry.title}</h3>
-            {entry.role && <span className="entry-role">{entry.role}</span>}
-            {entry.venue && <span className={`entry-venue ${entry.venue.toLowerCase() === "under review" ? "entry-venue-review" : ""}`}>{entry.venue}</span>}
-            {entry.distinction && <span className="entry-distinction">{entry.distinction}</span>}
+            {entry.engagement && <span className="entry-engagement">{entry.engagement}</span>}
+            {entry.role && <span className="entry-role"><RichText value={entry.role} /></span>}
+            {entry.venue && <span className="entry-venue">{entry.venue}</span>}
             {entry.meta && <span className="entry-meta">{entry.meta}</span>}
-            {entry.kind === "publication" && <InlineRefs refs={entry.refs} />}
+            {entry.recognition && <span className="entry-recognition">{entry.recognition}</span>}
           </div>
           {entry.date && <time>{entry.date}</time>}
         </div>
       )}
       {entry.lines?.map((line, index) => <p key={index}><RichText value={line} /></p>)}
-      {!entry.bullets && entry.kind !== "publication" && entry.refs?.length > 0 && <div className="entry-direct-refs"><InlineRefs refs={entry.refs} /></div>}
       {entry.bullets && (
         <ul>
           {entry.bullets.map((bullet, index) => (
@@ -57,7 +83,7 @@ export function Entry({ entry }) {
           ))}
         </ul>
       )}
-      {entry.bullets && entry.refs?.length > 0 && <div className="entry-direct-refs"><InlineRefs refs={entry.refs} /></div>}
+      {!showMarginRefs && entry.refs?.length > 0 && <div className="entry-direct-refs"><InlineRefs refs={entry.refs} /></div>}
     </article>
   );
 }
@@ -69,7 +95,6 @@ export function PageShapes() {
 export function Contact({ profile }) {
   return (
     <address>
-      <div>{profile.updated}</div>
       {profile.contact.map((item) => item.href
         ? <a key={item.label} href={item.href}>{item.label}</a>
         : <span key={item.label}>{item.label}</span>

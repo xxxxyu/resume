@@ -11,19 +11,8 @@ const homepageRepo = path.resolve(projectRoot, configuredRepo);
 const homepageUrl = "https://xxxxyu.github.io";
 const outputPath = path.join(projectRoot, "src/generated/homepage.json");
 
-let previousSnapshot = {};
-try {
-  previousSnapshot = JSON.parse(await readFile(outputPath, "utf8"));
-} catch {
-  // The first sync has no cached snapshot.
-}
-
 function git(...args) {
   return execFileSync("git", args, { cwd: homepageRepo, encoding: "utf8" }).trim();
-}
-
-function stripFrontMatter(markdown) {
-  return markdown.replace(/^\+\+\+[\s\S]*?\+\+\+\s*/, "").trim();
 }
 
 function plainText(markdown) {
@@ -40,6 +29,7 @@ function plainText(markdown) {
 function paperId(title) {
   const prefix = title.split(":", 1)[0].trim();
   const aliases = new Map([
+    ["Replicate What Varies", "patchwork"],
     ["Zetta ζ", "zetta"],
     ["Embodied.cpp", "embodied-cpp"],
     ["DWI", "dwi"],
@@ -89,53 +79,16 @@ function normalizeNotes(notes = "") {
   return plainText(notes).replace(/\s+,/g, ",");
 }
 
-function markdownBullets(markdown) {
-  return markdown
-    .split(/\r?\n/)
-    .filter((line) => /^-\s+/.test(line))
-    .map((line) => plainText(line.replace(/^-\s+/, "")))
-    .filter(Boolean);
-}
-
-async function githubStarCount(repository) {
-  const cached = previousSnapshot.githubStars?.[repository];
-  const headers = {
-    Accept: "application/vnd.github+json",
-    "User-Agent": "xiangyu-resume-sync"
-  };
-  if (process.env.GITHUB_TOKEN) headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
-
-  try {
-    const response = await fetch(`https://api.github.com/repos/${repository}`, { headers });
-    if (!response.ok) throw new Error(`GitHub API returned ${response.status}`);
-    const payload = await response.json();
-    if (!Number.isInteger(payload.stargazers_count)) throw new Error("GitHub API returned an invalid star count");
-    return payload.stargazers_count;
-  } catch (error) {
-    if (Number.isInteger(cached)) {
-      console.warn(`Using cached stars for ${repository}: ${cached} (${error.message})`);
-      return cached;
-    }
-    throw error;
-  }
-}
-
 const sourcePaths = Object.fromEntries(
   Object.entries(config.sources).map(([key, value]) => [key, path.join(homepageRepo, value)])
 );
 
 const papersToml = parse(await readFile(sourcePaths.papers, "utf8"));
-const profileMarkdown = await readFile(sourcePaths.profile, "utf8");
-const aboutMarkdown = await readFile(sourcePaths.about, "utf8");
-const awardsMarkdown = await readFile(sourcePaths.awards, "utf8");
-const experiencesMarkdown = await readFile(sourcePaths.experiences, "utf8");
-const citationBadge = JSON.parse(await readFile(sourcePaths.citations, "utf8"));
-const citationTotal = Number.parseInt(citationBadge.message, 10);
-if (!Number.isInteger(citationTotal)) throw new Error(`Invalid citation total in ${sourcePaths.citations}`);
-const githubStars = Object.fromEntries(await Promise.all(
-  (config.githubRepositories || []).map(async (repository) => [repository, await githubStarCount(repository)])
-));
-
+const scholarStats = JSON.parse(await readFile(sourcePaths.citations, "utf8"));
+const citationTotal = scholarStats.total;
+if (!Number.isSafeInteger(citationTotal) || citationTotal < 0) {
+  throw new Error(`Invalid citation total in ${sourcePaths.citations}`);
+}
 const snapshot = {
   source: {
     repository: "https://github.com/xxxxyu/xxxxyu.github.io",
@@ -144,15 +97,10 @@ const snapshot = {
     branch: git("branch", "--show-current"),
     files: config.sources
   },
-  profile: plainText(stripFrontMatter(profileMarkdown)),
-  about: plainText(stripFrontMatter(aboutMarkdown)),
-  awards: markdownBullets(awardsMarkdown),
-  experiences: markdownBullets(experiencesMarkdown),
   citations: {
     total: citationTotal,
     source: config.sources.citations
   },
-  githubStars,
   papers: papersToml.papers.map((paper, index) => ({
     id: paperId(paper.title),
     order: index + 1,
@@ -167,4 +115,4 @@ const snapshot = {
 };
 
 await writeFile(outputPath, `${JSON.stringify(snapshot, null, 2)}\n`, "utf8");
-console.log(`Synced ${snapshot.papers.length} papers, ${citationTotal} citations, and ${Object.keys(githubStars).length} GitHub star counts from ${snapshot.source.commit.slice(0, 7)} to ${path.relative(projectRoot, outputPath)}`);
+console.log(`Synced ${snapshot.papers.length} papers, ${citationTotal} source citations from ${snapshot.source.commit.slice(0, 7)} to ${path.relative(projectRoot, outputPath)}`);

@@ -213,6 +213,7 @@ scripts/render.mjs            Pagination checks and PDF/PNG export
 scripts/lib/                  Shared font-loading and layout validation
 scripts/render-readme-preview.mjs  Opt-in bilingual README montage
 public/fonts/                 Bundled, self-contained web fonts
+scripts/update-font-subsets.py  Opt-in CJK and symbol coverage refresh
 ```
 
 The separation is deliberate: normal wording changes happen in JSON, source
@@ -240,6 +241,27 @@ The repository includes Source Sans 3, Source Serif 4, and Chinese subsets of
 Noto Sans SC and Noto Serif SC under `public/fonts/`. Vite copies them into every
 production build and rewrites their URLs for the configured Pages base path.
 The deployment workflow fails if any expected font is missing.
+
+All renderers share font loading and disable headless Chromium's full font
+hinting, keeping fractional glyph widths consistent for A4 line breaks across
+macOS and Linux. Failed review checks upload screenshots and font/layout details
+as a short-lived `layout-diagnostics` Actions artifact.
+
+When new Chinese characters or symbols are added, refresh the committed subsets
+using the original Noto SC variable fonts (see the upstream links in the font
+notices). This opt-in maintenance command requires Python with `fonttools[woff]`;
+normal builds and deployments use only the committed WOFF2 files:
+
+```bash
+python scripts/update-font-subsets.py \
+  --sans /path/to/NotoSansSC-VariableFont_wght.ttf \
+  --serif /path/to/NotoSerifSC-VariableFont_wght.ttf
+npm run render:review
+```
+
+The script preserves previous coverage and adds characters required by both
+language files and the publication snapshot, including punctuation and star
+symbols, so those glyphs do not silently fall back to system fonts.
 
 See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) and the bundled
 [SIL Open Font License](licenses/OFL-1.1.txt) for attribution and license terms.

@@ -1,7 +1,7 @@
 import { spawnSync } from "node:child_process";
 import { mkdir, mkdtemp, readFile, rm, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { chromium } from "playwright";
+import { launchDocumentBrowser } from "./lib/browser-fonts.mjs";
 
 const root = process.cwd();
 const sourcePdfs = [
@@ -86,7 +86,7 @@ try {
   const htmlPath = path.join(workDir, "preview.html");
   await writeFile(htmlPath, html, "utf8");
 
-  const browser = await chromium.launch({ headless: true });
+  const browser = await launchDocumentBrowser();
   try {
     const page = await browser.newPage({ viewport: { width: 1920, height: 1400 }, deviceScaleFactor: 1 });
     await page.goto(`file://${htmlPath}`, { waitUntil: "load" });

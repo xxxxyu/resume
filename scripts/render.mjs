@@ -3,8 +3,7 @@ import { mkdir } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { preview } from "vite";
-import { chromium } from "playwright";
-import { waitForDocumentFonts } from "./lib/browser-fonts.mjs";
+import { launchDocumentBrowser, waitForDocumentFonts } from "./lib/browser-fonts.mjs";
 import { assertPageBounds, assertResumeLayout } from "./lib/browser-layout.mjs";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
@@ -18,7 +17,7 @@ const server = await preview({ root, preview: { host: "127.0.0.1", port: 4174, s
 let browser;
 try {
   const baseUrl = server.resolvedUrls.local[0];
-  browser = await chromium.launch({ headless: true });
+  browser = await launchDocumentBrowser();
   // Use desktop geometry for validation; narrow screen previews are scaled by the app.
   const context = await browser.newContext({ viewport: { width: 1100, height: 1400 }, deviceScaleFactor: 2 });
   for (const locale of locales) {

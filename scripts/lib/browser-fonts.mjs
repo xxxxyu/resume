@@ -1,3 +1,11 @@
+import { chromium } from "playwright";
+
+export function launchDocumentBrowser() {
+  // Headless Linux defaults to full hinting and rounds glyph advances to pixels.
+  // Keep fractional text metrics so A4 line breaks match the macOS review.
+  return chromium.launch({ headless: true, args: ["--font-render-hinting=none"] });
+}
+
 export async function waitForDocumentFonts(page) {
   await page.evaluate(async () => {
     const samples = [

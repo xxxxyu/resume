@@ -5,9 +5,8 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 import { createServer } from "vite";
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import { chromium } from "playwright";
 import { observeResumeMarginRefs } from "../src/layout/resume-links.js";
-import { waitForDocumentFonts } from "./lib/browser-fonts.mjs";
+import { launchDocumentBrowser, waitForDocumentFonts } from "./lib/browser-fonts.mjs";
 import { assertPageBounds, assertResumeLayout } from "./lib/browser-layout.mjs";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
@@ -73,7 +72,7 @@ let browser;
 try {
   const { getDocumentData } = await server.ssrLoadModule("/src/data/index.js");
   const { ResumePage } = await server.ssrLoadModule("/src/documents/resume.jsx");
-  browser = await chromium.launch({ headless: true });
+  browser = await launchDocumentBrowser();
   for (const locale of ["zh", "en"]) {
     const { resumeData } = getDocumentData(locale);
     const content = renderToStaticMarkup(React.createElement(ResumePage, { data: resumeData }));

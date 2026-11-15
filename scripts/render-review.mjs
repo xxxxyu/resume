@@ -42,12 +42,27 @@ async function inspect(target, label, { checkPageBounds = true } = {}) {
   } catch (error) {
     const basename = `failure.${label.replaceAll("/", ".")}`;
     await target.locator(".resume-page").screenshot({ path: path.join(output, `${basename}.png`) });
-    const blocks = await target.locator(".resume-header, .resume-section, .entry-head, .entry p, .entry li").evaluateAll((elements) => elements.map((element) => ({
+    const blocks = await target.locator(".resume-header, .resume-section, .entry-head, .entry p, .entry li, h3").evaluateAll((elements) => elements.map((element) => ({
       selector: element.className || element.tagName,
       text: element.textContent,
       height: element.getBoundingClientRect().height,
-      lineHeight: getComputedStyle(element).lineHeight
+      width: element.getBoundingClientRect().width,
+      lineHeight: getComputedStyle(element).lineHeight,
+      font: getComputedStyle(element).font,
+      letterSpacing: getComputedStyle(element).letterSpacing
     })));
+    const owner = typeof target.page === "function" ? target.page() : target;
+    const session = await owner.context().newCDPSession(owner);
+    await session.send("DOM.enable");
+    await session.send("CSS.enable");
+    const { root: documentRoot } = await session.send("DOM.getDocument");
+    const { nodeIds } = await session.send("DOM.querySelectorAll", { nodeId: documentRoot.nodeId, selector: "h3" });
+    for (const nodeId of nodeIds) {
+      const { outerHTML } = await session.send("DOM.getOuterHTML", { nodeId });
+      const { fonts } = await session.send("CSS.getPlatformFontsForNode", { nodeId });
+      blocks.push({ html: outerHTML, fonts });
+    }
+    await session.detach();
     await writeFile(path.join(output, `${basename}.json`), JSON.stringify(blocks, null, 2));
     throw error;
   }

@@ -69,6 +69,11 @@ The resume header groups the name and affiliation on the left and contacts in
 a right-hand column; the update date sits in the footer. Body text stays at 9pt
 with 1.5 line height, 3 mm section gaps, 1.5 mm ordinary entry gaps, and 1.2 mm
 research entry gaps.
+Typography is centralized in the `:root` tokens in `src/styles/main.css`:
+6.5pt fine details, 7pt captions, 8pt metadata, 9pt body, 10pt entry titles,
+10.5/11pt English/Chinese section labels, 22pt publication-page titles, and 26pt
+names in both languages. Weights use only 400/600/700; tracking uses 0, ±0.5px,
+or 1px. Reuse these tokens instead of adding per-entry sizes or arbitrary weights.
 The resume uses a 9 mm top margin. In the complete edition, the continuation
 hint shares the footer row with the update date and page number.
 

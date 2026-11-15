@@ -31,6 +31,23 @@
 }
 
 :root {
+  /* Shared type scale: pt sizes use only whole or half points. */
+  --font-size-fine: 6.5pt;
+  --font-size-caption: 7pt;
+  --font-size-meta: 8pt;
+  --font-size-body: 9pt;
+  --font-size-entry: 10pt;
+  --font-size-section-en: 10.5pt;
+  --font-size-section: 11pt;
+  --font-size-document-title: 22pt;
+  --font-size-name: 26pt;
+  --weight-regular: 400;
+  --weight-medium: 600;
+  --weight-bold: 700;
+  --tracking-normal: 0;
+  --tracking-tight: -0.5px;
+  --tracking-label: 0.5px;
+  --tracking-wide: 1px;
   --paper: #fffefa;
   --ink: #292825;
   --muted: #716d66;
@@ -113,11 +130,11 @@ a { color: var(--blue); text-decoration: none; }
   border-radius: 5px;
   background: var(--notice-panel);
   color: var(--muted);
-  font-size: 8.5pt;
+  font-size: var(--font-size-body);
   line-height: 1.5;
 }
 .preview-notice p { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 8px; margin: 0; }
-.preview-notice strong { color: var(--ink); font-weight: 680; white-space: nowrap; }
+.preview-notice strong { color: var(--ink); font-weight: var(--weight-bold); white-space: nowrap; }
 .preview-notice a { border-bottom: 1px solid var(--link-rule); }
 
 .preview-toolbar {
@@ -136,19 +153,19 @@ a { color: var(--blue); text-decoration: none; }
   background: var(--toolbar-panel);
   box-shadow: var(--toolbar-shadow);
   backdrop-filter: blur(10px);
-  font-size: 9pt;
+  font-size: var(--font-size-body);
   line-height: 1.5;
 }
 .preview-title { display: flex; align-items: baseline; gap: 8px; }
-.preview-title strong { color: var(--blue); font-weight: 720; }
-.preview-title span { color: var(--muted); font-size: 8pt; }
+.preview-title strong { color: var(--blue); font-weight: var(--weight-bold); }
+.preview-title span { color: var(--muted); font-size: var(--font-size-meta); }
 .preview-controls { display: flex; align-items: center; gap: 6px; }
 .preview-tabs { display: flex; gap: 3px; padding: 3px; border-radius: 5px; background: var(--tab-bg); }
 .preview-tabs a { padding: 4px 10px; border-radius: 3px; color: var(--muted); }
 .preview-locales a { padding-right: 7px; padding-left: 7px; }
 .preview-palettes a { padding-right: 7px; padding-left: 7px; }
-.preview-tabs a.active { color: var(--ink); background: var(--paper); box-shadow: var(--active-shadow); font-weight: 680; }
-.preview-toolbar button { justify-self: end; padding: 6px 10px; border: 0; border-radius: 4px; color: #fff; background: var(--blue); font: inherit; font-weight: 650; cursor: pointer; }
+.preview-tabs a.active { color: var(--ink); background: var(--paper); box-shadow: var(--active-shadow); font-weight: var(--weight-bold); }
+.preview-toolbar button { justify-self: end; padding: 6px 10px; border: 0; border-radius: 4px; color: #fff; background: var(--blue); font: inherit; font-weight: var(--weight-medium); cursor: pointer; }
 
 .shape { position: absolute; pointer-events: none; }
 .shape-left { top: 0; left: 0; width: 4.2mm; height: 25mm; background: var(--blue-pale); border-right: 0.7mm solid var(--blue); }
@@ -170,37 +187,35 @@ a { color: var(--blue); text-decoration: none; }
 .name-block h1 {
   margin: 0;
   font-family: "Noto Serif SC Resume", "Noto Serif SC", serif;
-  font-size: 26pt;
-  font-weight: 620;
+  font-size: var(--font-size-name);
+  font-weight: var(--weight-medium);
   line-height: 1;
-  letter-spacing: 0.03em;
+  letter-spacing: var(--tracking-wide);
 }
 
 .page[lang="en"] .name-block h1 {
   font-family: "Source Serif 4", serif;
-  font-size: 25pt;
-  font-weight: 650;
-  letter-spacing: -0.02em;
+  letter-spacing: var(--tracking-tight);
 }
 
 .page[lang="en"] .latin-name {
   font-family: "Noto Serif SC Resume", "Noto Serif SC", serif;
-  font-size: 8pt;
-  letter-spacing: 0.08em;
+  font-size: var(--font-size-meta);
+  letter-spacing: var(--tracking-wide);
 }
 
 .latin-name {
   margin-top: 0;
   color: var(--blue);
   font-family: "Source Serif 4", serif;
-  font-size: 8pt;
-  font-weight: 650;
+  font-size: var(--font-size-meta);
+  font-weight: var(--weight-medium);
   line-height: 1.5;
-  letter-spacing: 0.13em;
+  letter-spacing: var(--tracking-wide);
 }
 
-.affiliation { margin-top: 0; font-size: 10pt; font-weight: 610; line-height: 1.5; }
-.fields { margin-top: 0.3mm; color: var(--muted); font-size: 8pt; line-height: 1.5; letter-spacing: 0.01em; }
+.affiliation { margin-top: 0; font-size: var(--font-size-entry); font-weight: var(--weight-medium); line-height: 1.5; }
+.fields { margin-top: 0.3mm; color: var(--muted); font-size: var(--font-size-meta); line-height: 1.5; letter-spacing: var(--tracking-normal); }
 
 address {
   display: flex;
@@ -212,7 +227,7 @@ address {
   justify-content: space-between;
   gap: 1mm;
   color: var(--muted);
-  font-size: 8pt;
+  font-size: var(--font-size-meta);
   font-style: normal;
   line-height: 1.5;
 }
@@ -232,11 +247,11 @@ address > * { white-space: nowrap; }
 }
 
 .section-label { display: grid; grid-template-columns: 4mm minmax(0, 1fr); column-gap: 0.5mm; align-content: start; align-items: start; align-self: start; padding: 0; }
-.section-index { grid-column: 1; grid-row: 1; color: var(--red); font-family: "Source Sans 3", sans-serif; font-size: 7pt; font-weight: 650; line-height: 1.5; letter-spacing: 0.04em; }
-.section-label h2 { grid-column: 2; grid-row: 1; margin: -0.5mm 0 0; color: var(--blue); font-family: "Noto Sans SC Resume", "Noto Sans SC", sans-serif; font-size: 11pt; font-weight: 680; line-height: 1.5; text-align: right; }
-.section-english { grid-column: 2; grid-row: 2; display: block; margin-top: 0.2mm; color: var(--muted); font-family: "Source Serif 4", serif; font-size: 7pt; line-height: 1.5; letter-spacing: 0.035em; text-transform: uppercase; text-align: right; }
-.page[lang="en"] .section-label h2 { font-family: "Source Serif 4", serif; font-size: 10.5pt; letter-spacing: -0.01em; }
-.page[lang="en"] .section-english { font-size: 6.4pt; letter-spacing: 0.045em; }
+.section-index { grid-column: 1; grid-row: 1; color: var(--red); font-family: "Source Sans 3", sans-serif; font-size: var(--font-size-caption); font-weight: var(--weight-medium); line-height: 1.5; letter-spacing: var(--tracking-label); }
+.section-label h2 { grid-column: 2; grid-row: 1; margin: -0.5mm 0 0; color: var(--blue); font-family: "Noto Sans SC Resume", "Noto Sans SC", sans-serif; font-size: var(--font-size-section); font-weight: var(--weight-bold); line-height: 1.5; text-align: right; }
+.section-english { grid-column: 2; grid-row: 2; display: block; margin-top: 0.2mm; color: var(--muted); font-family: "Source Serif 4", serif; font-size: var(--font-size-caption); line-height: 1.5; letter-spacing: var(--tracking-label); text-transform: uppercase; text-align: right; }
+.page[lang="en"] .section-label h2 { font-family: "Source Serif 4", serif; font-size: var(--font-size-section-en); letter-spacing: var(--tracking-normal); }
+.page[lang="en"] .section-english { font-size: var(--font-size-fine); letter-spacing: var(--tracking-label); }
 .section-content { min-width: 0; padding-top: 0; }
 .resume-page .entry { position: relative; }
 .entry + .entry { margin-top: 1.5mm; }
@@ -250,29 +265,29 @@ address > * { white-space: nowrap; }
 .entry-head-full { grid-template-columns: minmax(0, 1fr); }
 
 .entry-identity { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4mm 1.15mm; min-width: 0; }
-.entry h3 { display: inline; margin: 0; font-size: 10pt; font-weight: 680; line-height: 1.5; }
-.entry-engagement { color: var(--ink); font-size: 8pt; font-weight: 600; line-height: 1.5; white-space: nowrap; }
-.entry-engagement::before { content: "·"; margin-right: 1.15mm; font-weight: 400; }
-.entry-role { color: var(--ink); font-size: 8pt; font-weight: 400; line-height: 1.5; letter-spacing: 0.02em; }
-.entry-recognition { margin-left: auto; color: var(--ink); font-size: 8pt; font-weight: 400; line-height: 1.5; white-space: nowrap; }
-.entry-venue { color: var(--ink); font-size: 8pt; font-weight: 640; line-height: 1.5; }
-.entry-venue::before { content: "|"; margin-right: 1.15mm; color: var(--rule); font-weight: 400; }
-.entry-meta { color: var(--muted); font-size: 8pt; line-height: 1.5; }
+.entry h3 { display: inline; margin: 0; font-size: var(--font-size-entry); font-weight: var(--weight-bold); line-height: 1.5; }
+.entry-engagement { color: var(--ink); font-size: var(--font-size-meta); font-weight: var(--weight-medium); line-height: 1.5; white-space: nowrap; }
+.entry-engagement::before { content: "·"; margin-right: 1.15mm; font-weight: var(--weight-regular); }
+.entry-role { color: var(--ink); font-size: var(--font-size-meta); font-weight: var(--weight-regular); line-height: 1.5; letter-spacing: var(--tracking-normal); }
+.entry-recognition { margin-left: auto; color: var(--ink); font-size: var(--font-size-meta); font-weight: var(--weight-regular); line-height: 1.5; white-space: nowrap; }
+.entry-venue { color: var(--ink); font-size: var(--font-size-meta); font-weight: var(--weight-medium); line-height: 1.5; }
+.entry-venue::before { content: "|"; margin-right: 1.15mm; color: var(--rule); font-weight: var(--weight-regular); }
+.entry-meta { color: var(--muted); font-size: var(--font-size-meta); line-height: 1.5; }
 .entry-meta::before { content: "|"; margin-right: 1.15mm; color: var(--rule); }
-time { color: var(--muted); font-size: 8pt; font-variant-numeric: tabular-nums; line-height: 1.5; text-align: right; white-space: nowrap; }
+time { color: var(--muted); font-size: var(--font-size-meta); font-variant-numeric: tabular-nums; line-height: 1.5; text-align: right; white-space: nowrap; }
 
-.entry p, .entry li { margin: 0; font-size: 9pt; line-height: 1.5; }
+.entry p, .entry li { margin: 0; font-size: var(--font-size-body); line-height: 1.5; }
 .entry p { margin-top: 0.42mm; }
 .entry ul { margin: 0.5mm 0 0; padding: 0; list-style: none; }
 .entry li { position: relative; padding-left: 2.8mm; }
 .entry li + li { margin-top: 0.38mm; }
 .entry li::before { content: ""; position: absolute; top: 0.55em; left: 0.45mm; width: 0.95mm; height: 0.95mm; background: var(--blue); }
-.text-title { color: var(--ink); font-weight: 600; }
-.text-meta { color: var(--ink); font-weight: 400; }
-.text-distinction { color: var(--ink); font-weight: 700; }
-.text-highlight { color: var(--ink); font-weight: var(--highlight-weight, 700); }
-.text-accent { color: var(--red); font-weight: 700; }
-.refs { margin-left: 1.1mm; font-size: 8pt; line-height: 1.5; }
+.text-title { color: var(--ink); font-weight: var(--weight-medium); }
+.text-meta { color: var(--ink); font-weight: var(--weight-regular); }
+.text-distinction { color: var(--ink); font-weight: var(--weight-bold); }
+.text-highlight { color: var(--ink); font-weight: var(--highlight-weight, var(--weight-bold)); }
+.text-accent { color: var(--red); font-weight: var(--weight-bold); }
+.refs { margin-left: 1.1mm; font-size: var(--font-size-meta); line-height: 1.5; }
 .ref-separator { margin: 0 0.55mm; color: var(--rule); }
 .entry-plain p { display: block; }
 .entry-plain p + p { margin-top: 0.55mm; }
@@ -290,7 +305,7 @@ time { color: var(--muted); font-size: 8pt; font-variant-numeric: tabular-nums; 
   justify-content: flex-end;
   align-items: baseline;
   gap: 0.7mm 1.5mm;
-  font-size: 7pt;
+  font-size: var(--font-size-caption);
   line-height: 1.5;
   text-align: right;
 }
@@ -307,7 +322,7 @@ time { color: var(--muted); font-size: 8pt; font-variant-numeric: tabular-nums; 
 }
 .entry-margin-refs a:hover, .entry-margin-refs a:focus-visible { color: var(--blue); border-bottom-color: currentColor; }
 .entry-margin-refs a:focus-visible { outline: 1px solid var(--blue); outline-offset: 2px; }
-.margin-link-arrow { flex: none; font-size: 0.9em; }
+.margin-link-arrow { flex: none; font-size: var(--font-size-fine); }
 
 .research-group + .research-group { margin-top: 2mm; }
 .research-group-head {
@@ -319,20 +334,20 @@ time { color: var(--muted); font-size: 8pt; font-variant-numeric: tabular-nums; 
   border-bottom: 0.55pt solid var(--rule);
 }
 .research-group-title { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5mm 1.2mm; }
-.research-group-title h3 { margin: 0; color: var(--blue); font-family: "Noto Serif SC Resume", "Noto Serif SC", serif; font-size: 10pt; line-height: 1.5; }
-.page[lang="en"] .research-group-title h3 { font-family: "Source Serif 4", serif; font-weight: 660; }
-.research-group-title > span:last-child { color: var(--muted); font-family: "Source Serif 4", serif; font-size: 8pt; line-height: 1.5; }
+.research-group-title h3 { margin: 0; color: var(--blue); font-family: "Noto Serif SC Resume", "Noto Serif SC", serif; font-size: var(--font-size-entry); line-height: 1.5; }
+.page[lang="en"] .research-group-title h3 { font-family: "Source Serif 4", serif; font-weight: var(--weight-bold); }
+.research-group-title > span:last-child { color: var(--muted); font-family: "Source Serif 4", serif; font-size: var(--font-size-meta); line-height: 1.5; }
 .research-group-entries { margin-top: 1mm; }
 .research-group-entries .entry + .entry { margin-top: 1.2mm; }
 
 .research-group[data-emphasis="supporting"] {
-  --highlight-weight: 600;
+  --highlight-weight: var(--weight-medium);
 }
 .research-group[data-emphasis="supporting"] .research-group-head { border-bottom-color: var(--rule-soft); }
 .research-group[data-emphasis="supporting"] .research-group-title h3 {
   color: var(--ink);
-  font-size: 9pt;
-  font-weight: 600;
+  font-size: var(--font-size-body);
+  font-weight: var(--weight-medium);
 }
 .research-group[data-emphasis="supporting"] .research-group-title > span:last-child { color: var(--ink); }
 
@@ -344,12 +359,12 @@ time { color: var(--muted); font-size: 8pt; font-variant-numeric: tabular-nums; 
   display: flex;
   justify-content: space-between;
   color: var(--muted);
-  font-size: 7pt;
+  font-size: var(--font-size-caption);
   line-height: 1.5;
-  letter-spacing: 0.015em;
+  letter-spacing: var(--tracking-normal);
 }
 
-.document-continuation-cue { display: inline-flex; align-items: baseline; gap: 1.5mm; color: var(--blue); font-weight: 650; }
+.document-continuation-cue { display: inline-flex; align-items: baseline; gap: 1.5mm; color: var(--blue); font-weight: var(--weight-medium); }
 .document-continuation-cue b { color: var(--red); }
 
 .papers-page { padding-top: 10mm; }
@@ -360,20 +375,19 @@ time { color: var(--muted); font-size: 8pt; font-variant-numeric: tabular-nums; 
   padding-bottom: 2.6mm;
   border-bottom: 0.55pt solid var(--rule);
 }
-.papers-kicker { color: var(--red); font-family: "Source Serif 4", serif; font-size: 7pt; font-weight: 700; line-height: 1.5; letter-spacing: 0.11em; }
-.papers-header h1 { margin: 0.4mm 0 0; color: var(--blue); font-family: "Noto Serif SC Resume", "Noto Serif SC", serif; font-size: 22pt; font-weight: 650; line-height: 1.5; letter-spacing: 0.03em; }
-.papers-page[lang="en"] .papers-header h1 { font-family: "Source Serif 4", serif; letter-spacing: -0.015em; }
-.papers-header h1 small { margin-left: 2mm; color: var(--muted); font-size: 9pt; font-weight: 550; }
-.papers-header p { margin: 0.3mm 0 0; color: var(--muted); font-size: 8pt; line-height: 1.5; }
+.papers-kicker { color: var(--red); font-family: "Source Serif 4", serif; font-size: var(--font-size-caption); font-weight: var(--weight-bold); line-height: 1.5; letter-spacing: var(--tracking-wide); }
+.papers-header h1 { margin: 0.4mm 0 0; color: var(--blue); font-family: "Noto Serif SC Resume", "Noto Serif SC", serif; font-size: var(--font-size-document-title); font-weight: var(--weight-medium); line-height: 1.5; letter-spacing: var(--tracking-wide); }
+.papers-page[lang="en"] .papers-header h1 { font-family: "Source Serif 4", serif; letter-spacing: var(--tracking-tight); }
+.papers-header p { margin: 0.3mm 0 0; color: var(--muted); font-size: var(--font-size-meta); line-height: 1.5; }
 .papers-header p span { color: var(--rule); }
-.papers-source { display: flex; flex-direction: column; align-items: flex-end; gap: 0.5mm; color: var(--muted); font-size: 8pt; line-height: 1.5; }
+.papers-source { display: flex; flex-direction: column; align-items: flex-end; gap: 0.5mm; color: var(--muted); font-size: var(--font-size-meta); line-height: 1.5; }
 
 .paper-list { margin-top: 2.7mm; }
 .paper-group + .paper-group { margin-top: var(--paper-group-gap, 5.3mm); }
 .paper-group-header { display: flex; align-items: baseline; gap: 1.5mm; padding-bottom: 0.8mm; border-bottom: 0.55pt solid var(--rule); }
-.paper-group-header h2 { margin: 0; color: var(--blue); font-family: "Noto Serif SC Resume", "Noto Serif SC", serif; font-size: 11pt; font-weight: 650; line-height: 1.5; }
+.paper-group-header h2 { margin: 0; color: var(--blue); font-family: "Noto Serif SC Resume", "Noto Serif SC", serif; font-size: var(--font-size-section); font-weight: var(--weight-medium); line-height: 1.5; }
 .papers-page[lang="en"] .paper-group-header h2 { font-family: "Source Serif 4", serif; }
-.paper-group-header span { color: var(--muted); font-family: "Source Serif 4", serif; font-size: 8pt; font-weight: 650; line-height: 1.5; letter-spacing: 0.06em; }
+.paper-group-header span { color: var(--muted); font-family: "Source Serif 4", serif; font-size: var(--font-size-meta); font-weight: var(--weight-medium); line-height: 1.5; letter-spacing: var(--tracking-label); }
 .paper-item {
   display: grid;
   grid-template-columns: 7.5mm minmax(0, 1fr);
@@ -382,22 +396,22 @@ time { color: var(--muted); font-size: 8pt; font-variant-numeric: tabular-nums; 
   border-bottom: 0.4pt solid var(--rule-soft);
   break-inside: avoid;
 }
-.paper-index { padding-top: 0.08mm; color: var(--red); font-family: "Source Serif 4", serif; font-size: 8pt; font-weight: 700; line-height: 1.5; letter-spacing: 0.04em; }
+.paper-index { padding-top: 0.08mm; color: var(--red); font-family: "Source Serif 4", serif; font-size: var(--font-size-meta); font-weight: var(--weight-bold); line-height: 1.5; letter-spacing: var(--tracking-label); }
 .paper-content { min-width: 0; }
-.paper-content h2 { margin: 0; font-family: "Source Serif 4", "Noto Serif SC Resume", serif; font-size: 10pt; font-weight: 650; line-height: 1.5; letter-spacing: -0.006em; }
-.paper-authors { margin-top: 0.2mm; color: var(--muted); font-size: 8pt; line-height: 1.5; }
-.paper-authors strong { color: var(--blue); font-weight: 750; }
-.paper-detail { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.3mm 1.1mm; margin-top: 0.2mm; font-size: 8pt; line-height: 1.5; }
-.paper-venue { color: var(--ink); font-weight: 670; }
-.paper-note { color: var(--ink); font-weight: 600; }
-.paper-note-highlight { color: var(--ink); font-weight: 700; }
-.paper-detail .refs { margin-left: 0.2mm; font-size: 8pt; }
+.paper-content h2 { margin: 0; font-family: "Source Serif 4", "Noto Serif SC Resume", serif; font-size: var(--font-size-entry); font-weight: var(--weight-medium); line-height: 1.5; letter-spacing: var(--tracking-normal); }
+.paper-authors { margin-top: 0.2mm; color: var(--muted); font-size: var(--font-size-meta); line-height: 1.5; }
+.paper-authors strong { color: var(--blue); font-weight: var(--weight-bold); }
+.paper-detail { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.3mm 1.1mm; margin-top: 0.2mm; font-size: var(--font-size-meta); line-height: 1.5; }
+.paper-venue { color: var(--ink); font-weight: var(--weight-bold); }
+.paper-note { color: var(--ink); font-weight: var(--weight-medium); }
+.paper-note-highlight { color: var(--ink); font-weight: var(--weight-bold); }
+.paper-detail .refs { margin-left: 0.2mm; font-size: var(--font-size-meta); }
 .paper-page-limit { position: absolute; right: 14mm; bottom: 17.5mm; left: 14mm; height: 0; pointer-events: none; }
-.paper-continuation-cue { position: absolute; right: 14mm; bottom: 11.5mm; display: flex; align-items: center; gap: 1.5mm; color: var(--blue); font-family: "Source Serif 4", "Noto Serif SC Resume", serif; font-size: 7pt; font-weight: 650; line-height: 1.5; letter-spacing: 0.035em; }
+.paper-continuation-cue { position: absolute; right: 14mm; bottom: 11.5mm; display: flex; align-items: center; gap: 1.5mm; color: var(--blue); font-family: "Source Serif 4", "Noto Serif SC Resume", serif; font-size: var(--font-size-caption); font-weight: var(--weight-medium); line-height: 1.5; letter-spacing: var(--tracking-label); }
 .paper-continuation-cue::before { width: 18mm; border-top: 0.45pt solid var(--rule); content: ""; }
-.paper-continuation-cue b { color: var(--red); font-size: 8pt; font-weight: 700; }
+.paper-continuation-cue b { color: var(--red); font-size: var(--font-size-meta); font-weight: var(--weight-bold); }
 .paper-measure { position: absolute; top: 0; left: -1000vw; visibility: hidden; width: 182mm; pointer-events: none; }
-.paper-footer { position: absolute; left: 14mm; right: 14mm; bottom: 5.2mm; display: flex; justify-content: space-between; color: var(--muted); font-size: 7pt; line-height: 1.5; }
+.paper-footer { position: absolute; left: 14mm; right: 14mm; bottom: 5.2mm; display: flex; justify-content: space-between; color: var(--muted); font-size: var(--font-size-caption); line-height: 1.5; }
 
 @page { size: A4; margin: 0; }
 

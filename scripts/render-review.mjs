@@ -24,7 +24,7 @@ for (const fontPath of fontPaths) {
   css = css.replaceAll(`url("${fontPath}")`, `url("data:font/woff2;base64,${bytes.toString("base64")}")`);
 }
 css += `
-  .draft-note { max-width: 210mm; margin: 0 auto 14px; padding: 0 14mm; color: #716d66; font-size: 13px; }
+  .draft-note { max-width: 210mm; margin: 0 auto 14px; padding: 0 14mm; color: #716d66; font-size: var(--font-size-body); }
   @media print { .draft-note { display: none; } }
 `;
 if (contentDraft) css += `

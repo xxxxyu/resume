@@ -44,6 +44,15 @@ jobs:
       - name: Validate standalone and embedded previews
         run: npm run render:review
 
+      - name: Upload failed layout diagnostics
+        if: failure()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        with:
+          name: layout-diagnostics
+          path: output/review/failure.*
+          if-no-files-found: ignore
+          retention-days: 7
+
       - name: Render PDF documents
         run: node scripts/render.mjs
         env:

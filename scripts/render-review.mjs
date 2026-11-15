@@ -36,8 +36,21 @@ if (contentDraft) css += `
 
 async function inspect(target, label, { checkPageBounds = true } = {}) {
   await waitForDocumentFonts(target);
-  if (checkPageBounds) await assertPageBounds(target, label, { draft: contentDraft });
-  return assertResumeLayout(target, label);
+  try {
+    if (checkPageBounds) await assertPageBounds(target, label, { draft: contentDraft });
+    return await assertResumeLayout(target, label);
+  } catch (error) {
+    const basename = `failure.${label.replaceAll("/", ".")}`;
+    await target.locator(".resume-page").screenshot({ path: path.join(output, `${basename}.png`) });
+    const blocks = await target.locator(".resume-header, .resume-section, .entry-head, .entry p, .entry li").evaluateAll((elements) => elements.map((element) => ({
+      selector: element.className || element.tagName,
+      text: element.textContent,
+      height: element.getBoundingClientRect().height,
+      lineHeight: getComputedStyle(element).lineHeight
+    })));
+    await writeFile(path.join(output, `${basename}.json`), JSON.stringify(blocks, null, 2));
+    throw error;
+  }
 }
 
 const server = await createServer({ root, server: { middlewareMode: true }, appType: "custom" });
